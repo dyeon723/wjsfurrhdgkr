@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           전기기기 기출문제 HTML 템플릿  —  AI 작업 필수 지침               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  ★ 작업 전 이 주석을 반드시 끝까지 읽을 것 ★                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [1] 수식 렌더링 (KaTeX)                                                     ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 모든 수식은 KaTeX LaTeX 문법으로 작성할 것                               ║
+║  · 절대 ², √, · 같은 유니코드 문자로 대체하지 말 것                         ║
+║                                                                              ║
+║  JS 백틱(`) 문자열 안 수식 작성법:                                           ║
+║    인라인 → \\( 수식 \\)                                                     ║
+║    블록   → \\[ 수식 \\]                                                     ║
+║                                                                              ║
+║  ⚠️  백슬래시와 괄호 사이 공백 절대 금지 — 렌더링 실패                      ║
+║    올바름: \\( E = IR \\)                                                    ║
+║    틀림:   \\ ( E = IR \\ )                                                  ║
+║                                                                              ║
+║  여러 줄 수식(= 기준 정렬)은 반드시 aligned 환경 사용:                       ║
+║    \\[ \\begin{aligned}                                                      ║
+║      E &= V + IR \\\\                                                        ║
+║        &= 100 + 20 \\\\                                                      ║
+║        &= 120                                                                ║
+║    \\end{aligned} \\]                                                        ║
+║    → & 는 = 앞에 붙이는 정렬 기준, \\\\ 는 줄바꿈                           ║
+║                                                                              ║
+║  분수: \\( \\dfrac{분자}{분모} \\)                                           ║
+║  루트: \\( \\sqrt{3} \\)                                                     ║
+║  단위: \\( [\\text{V}] \\)                                                   ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [2] 이미지 / 그래프 / 회로도                                                ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 그림·그래프·회로도가 필요하면 절대 직접 그리지 말 것                     ║
+║  · 반드시 사용자에게 이미지 파일을 요청할 것                                ║
+║  · 이미지 파일이 오면 → <img src="파일명.jpg" style="max-width:100%">       ║
+║  · 이미지 없이 진행할 경우 해당 문제 작업 중단 후 요청                      ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [3] 불명확한 내용 처리                                                      ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 글자, 숫자, 수식이 불분명하면 작업 전에 반드시 사용자에게 질문할 것      ║
+║  · 추측으로 채우거나 임의로 생략하지 말 것                                  ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [4] 해설 작성 규칙                                                          ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  e 필드 (기본 해설):                                                         ║
+║    · 책에 있는 내용을 빠짐없이 전부 입력할 것                               ║
+║    · 표·수식·단계별 풀이 모두 포함                                           ║
+║    · 마음대로 요약하거나 단어 바꾸지 말 것                                  ║
+║                                                                              ║
+║  ae 필드 (AI 추가 해설):                                                     ║
+║    · AI가 작성하는 보충 설명 (기본 해설과 별도 영역에 표시됨)               ║
+║    · 암기 팁, 직관적 설명, 오답 분석 포함                                   ║
+║    · 수식은 동일한 KaTeX 규칙 적용                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [5] 해설 HTML 요소 사용법                                                   ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  수식 박스:                                                                  ║
+║    <div class="fb0">\\[ 수식 \\]</div>                                       ║
+║                                                                              ║
+║  표 (모바일 스크롤 지원):                                                    ║
+║    <div class="tbl-wrap">                                                    ║
+║      <table class="ctbl">                                                    ║
+║        <tr><th>구분</th><th>중권</th><th>파권</th></tr>                      ║
+║        <tr><td>병렬회로수</td><td>P</td><td>2</td></tr>                      ║
+║      </table>                                                                ║
+║    </div>                                                                    ║
+║                                                                              ║
+║  강조:  <strong>강조할 텍스트</strong>                                       ║
+║  팁박스: <div class="tip">암기 팁 내용</div>                                 ║
+║  줄바꿈: <br>                                                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6] 문제 데이터 형식 (QS 배열에 추가)                                       ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  {                                                                           ║
+║    n   : 문제번호 (숫자),       ← 작업 전 반드시 기존 n값 목록 확인 후 결정 ║
+║    q   : '문제 본문' (KaTeX 수식 사용 가능),                                 ║
+║    o   : ['보기①', '보기②', '보기③', '보기④'],  ← 책 원본 순서 그대로     ║
+║    ans : 정답 번호 1~4 (o 배열 기준, 1=첫번째 보기),                         ║
+║    e   : `책 해설 HTML`,          ← 절대 줄이지 말 것                        ║
+║    ae  : `AI 추가해설 HTML`,      ← 아래 ae 작성 기준 참고                   ║
+║    formula : `공식모음 HTML`,     ← 공식이 없는 문제는 이 필드 생략          ║
+║  }                                                                           ║
+║                                                                              ║
+║  ※ n번호 안내                                                                ║
+║    작업 시작 전 "현재 QS 배열의 n값만 나열해줘" 라고 먼저 요청할 것         ║
+║    → AI가 파일 재스캔 없이 중복 없는 번호 바로 결정 가능                    ║
+║    번호는 반드시 연속일 필요 없음 (띄엄띄엄 가능)                           ║
+║                                                                              ║
+║  ※ ae 필드 작성 기준                                                         ║
+║    · 분량: 3~6줄 이상, 충분히 상세하게                                       ║
+║    · 필수 포함: 직관적 설명 or 암기 팁 or 오답 분석 중 2가지 이상           ║
+║    · 책 해설과 내용이 겹치지 않게 보충 관점으로 작성                         ║
+║    · tip 박스 적극 활용: <div class="tip">핵심 암기 내용</div>               ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6-1] 자주 쓰는 HTML 스니펫 (복붙용)                                        ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  인라인 수식:   \\( 수식 \\)                                                 ║
+║  블록 수식:     \\[ 수식 \\]                                                  ║
+║                                                                              ║
+║  수식 박스:                                                                  ║
+║  `<div class="fb0">\\[ 수식 \\]</div>`                                       ║
+║                                                                              ║
+║  여러줄 수식:                                                                ║
+║  `<div class="fb0">                                                          ║
+║  \\[ \\begin{aligned}                                                        ║
+║    E &= V + IR \\\\                                                          ║
+║      &= 100                                                                  ║
+║  \\end{aligned} \\]</div>`                                                   ║
+║                                                                              ║
+║  표:                                                                         ║
+║  `<div class="tbl-wrap"><table class="ctbl">                                 ║
+║  <tr><th>구분</th><th>A</th><th>B</th></tr>                                  ║
+║  <tr><td>항목</td><td>값</td><td>값</td></tr>                                ║
+║  </table></div>`                                                             ║
+║                                                                              ║
+║  팁 박스:  `<div class="tip">내용</div>`                                     ║
+║  강조:     `<strong>내용</strong>`                                           ║
+║  줄바꿈:   `<br>`                                                            ║
+║                                                                              ║
+║  formula 필드:                                                               ║
+║  `<div class="fb0">\\[ 공식 \\]</div>변수 설명`                              ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [7] 주관식 데이터 형식 (SQS 배열에 추가)                                    ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  A형 (빈칸 채우기):                                                          ║
+║  {                                                                           ║
+║    type: 'fill',                                                             ║
+║    id: 'sqA1',        ← 고유 id, 순서대로 sqA1 sqA2 ...                     ║
+║    title: '제목',                                                            ║
+║    sub: '안내 문구',                                                         ║
+║    sent: `문장 <input class="sq-inp" data-ans="정답" placeholder="　"> 문장` ║
+║  }                                                                           ║
+║                                                                              ║
+║  B형 (공식 암기):                                                            ║
+║  {                                                                           ║
+║    type: 'formula',                                                          ║
+║    id: 'sqB1',        ← 고유 id, 순서대로 sqB1 sqB2 ...                     ║
+║    title: '제목',                                                            ║
+║    hint: 'E = ?',     ← 화면에 표시될 힌트                                  ║
+║    ans: `<div class="fb0">\\[ 수식 \\]</div> 변수 설명`                      ║
+║  }                                                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [8] 작업 순서                                                               ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  1) 제목 수정: <title> 태그와 .hd-title 텍스트 변경                         ║
+║  2) QS 배열의 /* 여기에 문제 추가 */ 위치에 문제 데이터 추가               ║
+║  3) 공식이 있는 문제에는 formula 필드 추가                                  ║
+║  4) 주관식이 있으면 SQS 배열에 추가                                         ║
+║  5) 예시 주석 블록은 건드리지 말 것 (/* ... */ 로 감싸져 있음)              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHAPTER 03·04 · 선로정수 및 코로나 현상 / 송전특성 및 조상설비 - 전력공학</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#0d0f18; --sf:#161929; --sf2:#1d2035; --bd:#272b42;
+  --ac:#5b9cf6; --ac2:#f5c842; --ok:#3ecf8e; --ng:#f05a5a;
+  --tx:#e4e8f5; --tx2:#8e97be; --tx3:#5a6285;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+
+/* ── 헤더 (컴팩트) ── */
+.hd{
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac);
+  padding:8px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.hd-title{font-size:.95rem;font-weight:900;color:var(--ac);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hd-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
+/* 진도 칩 */
+.progress-chip{
+  font-size:.68rem;font-weight:700;
+  background:var(--sf2);border:1px solid var(--bd);
+  border-radius:20px;padding:3px 9px;
+  color:var(--tx2);white-space:nowrap;
+}
+.progress-chip span{color:var(--ac);}
+
+/* 통계/필터 버튼 */
+.stat-btn{
+  display:flex;align-items:center;gap:3px;
+  background:var(--sf2);border:1px solid var(--bd);border-radius:20px;
+  padding:3px 9px;font-size:.68rem;font-weight:700;
+  cursor:pointer;transition:all .2s;user-select:none;white-space:nowrap;
+  color:var(--tx2);
+}
+@media(hover:hover){.stat-btn:hover{filter:brightness(1.2);}}
+.stat-btn .lbl{font-weight:700;}
+#btnAll.on{border-color:var(--ac);background:rgba(91,156,246,.15);color:var(--ac);}#btnNg.on{border-color:var(--ng);background:rgba(240,90,90,.12);color:var(--ng);}
+#btnWeak.on{border-color:#f5963a;background:rgba(245,150,50,.12);color:#f5963a;}
+
+/* 자주 틀림 드롭다운 */
+.weak-wrap{position:relative;}
+.weak-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:5px 0;min-width:140px;z-index:50;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.weak-menu.open{display:block;}
+.weak-item{
+  padding:8px 14px;font-size:.76rem;color:var(--tx2);cursor:pointer;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.weak-item:hover{background:rgba(245,150,50,.1);color:#f5963a;}
+
+/* 버튼 */
+.fb{background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);padding:4px 11px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.fb.on{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fb:active{filter:brightness(1.25);}
+.fb.danger{color:var(--ng);border-color:rgba(240,90,90,.3);background:rgba(240,90,90,.08);}
+.fb.danger:active{filter:brightness(1.2);}
+
+/* ── 기능버튼 바 ── */
+.sb{padding:7px 18px;background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;}
+.sb-btns{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── 메인 ── */
+.main{max-width:860px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:11px;}
+
+/* ── 객관식 카드 ── */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:border-color .2s;}
+.card.answered-ok{border-color:rgba(62,207,142,.35);}
+.card.answered-ng{border-color:rgba(240,90,90,.35);}
+
+/* 문제 헤더 */
+.ch{display:flex;align-items:flex-start;gap:10px;padding:13px 15px 0;}
+.cn{background:var(--ac);color:#fff;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cn.ok{background:var(--ok);}
+.cn.ng{background:var(--ng);}
+.ct{flex:1;padding-bottom:11px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
+.tg{font-size:.64rem;padding:2px 7px;border-radius:9px;font-weight:500;}
+.tg-g{background:rgba(91,156,246,.14);color:var(--ac);border:1px solid rgba(91,156,246,.28);}
+.tg-s{background:rgba(245,200,66,.13);color:var(--ac2);border:1px solid rgba(245,200,66,.27);}
+
+.tg-at{font-size:.62rem;font-variant-numeric:tabular-nums;border:1px solid transparent;}
+.tg-at-none {background:rgba(255,255,255,.04);color:var(--tx3);border-color:transparent;}          /* 미시도 */
+.tg-at-zero {background:rgba(240,90,90,.12);color:var(--ng);border-color:rgba(240,90,90,.3);}      /* 0% */
+.tg-at-low  {background:rgba(245,150,50,.12);color:#f5963a;border-color:rgba(245,150,50,.3);}      /* 1~49% */
+.tg-at-mid  {background:rgba(245,200,66,.12);color:var(--ac2);border-color:rgba(245,200,66,.3);}   /* 50~99% */
+.tg-at-full {background:rgba(62,207,142,.12);color:var(--ok);border-color:rgba(62,207,142,.3);}    /* 100% */
+.qt{font-size:.9rem;line-height:1.65;color:var(--tx);font-weight:500;}
+
+/* 보기 — 항상 표시 */
+.opts{padding:0 15px 12px 57px;display:flex;flex-direction:column;gap:4px;}
+.opt{display:flex;align-items:flex-start;gap:7px;padding:7px 9px;border-radius:7px;border:1px solid transparent;font-size:.84rem;color:var(--tx2);line-height:1.5;cursor:pointer;transition:all .18s;}
+@media(hover:hover){.opt:hover:not(.lk){background:rgba(91,156,246,.07);border-color:rgba(91,156,246,.2);}}
+.on{font-size:.73rem;font-weight:700;min-width:17px;color:var(--tx3);padding-top:1px;flex-shrink:0;}
+.opt.cor{background:rgba(62,207,142,.09);border-color:rgba(62,207,142,.35);color:var(--ok)!important;}
+.opt.cor .on{color:var(--ok);}
+.opt.wrg{background:rgba(240,90,90,.09);border-color:rgba(240,90,90,.3);color:var(--ng)!important;}
+.opt.wrg .on{color:var(--ng);}
+
+/* 결과 바 (답 선택 전엔 숨김) */
+.res-bar{display:none;border-top:1px solid var(--bd);}
+.res-bar.show{display:block;}
+
+/* 정답 표시 줄 */
+.ansbar{display:flex;align-items:center;gap:9px;padding:8px 15px;background:rgba(62,207,142,.05);border-bottom:1px solid var(--bd);}
+.albl{font-size:.68rem;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.5px;}
+.aval{font-weight:900;font-size:.88rem;color:var(--ok);}
+.rtbtn{margin-left:auto;background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:4px 11px;border-radius:7px;font-size:.73rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.rtbtn:hover{color:var(--ac);border-color:var(--ac);}
+
+/* 해설 */
+.expl{padding:13px 15px 15px;font-size:.83rem;line-height:1.9;color:var(--tx2);word-break:keep-all;overflow-wrap:break-word;}
+.expl strong{color:var(--ac2);font-weight:700;}
+
+/* 추가해설 — expl과 동일 렌더링, 구분선으로만 분리 */
+.ae-expl{border-top:1px dashed var(--bd);margin-top:0;padding-top:11px;}
+.ae-label{font-size:.72rem;font-weight:700;color:var(--ac);margin-bottom:7px;}
+
+/* 수식 박스 */
+.fb0{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:6px;padding:11px 14px;margin:9px 0;line-height:2.2;overflow-x:auto;max-width:100%;word-break:break-word;}
+.fl{margin:3px 0;white-space:nowrap;}
+
+/* KaTeX — 긴 수식 줄바꿈 */
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0;max-width:100%;}
+.katex-display > .katex{max-width:100%;white-space:normal;}
+.katex-display > .katex > .katex-html{max-width:100%;overflow-x:auto;overflow-y:hidden;}
+.katex{font-size:1em;}
+
+/* aligned 환경 — = 기준 정렬 줄바꿈 */
+.katex .base{max-width:100%;}
+
+.tip{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:6px;padding:8px 12px;margin-top:8px;font-size:.8rem;color:var(--ac2);word-break:keep-all;}
+.tip::before{content:"💡 ";}
+
+/* 표 — 모바일 스크롤 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:9px 0;}
+.ctbl{width:100%;border-collapse:collapse;font-size:.79rem;min-width:280px;}
+.ctbl th,.ctbl td{border:1px solid var(--bd);padding:5px 9px;text-align:center;white-space:nowrap;}
+.ctbl th{background:var(--sf2);color:var(--ac);font-weight:700;}
+.ctbl td{color:var(--tx2);}
+.gw{margin:11px 0;text-align:center;overflow-x:auto;}
+
+/* ── 주관식 ── */
+.sq-wrap{max-width:860px;margin:0 auto;padding:0 14px 60px;display:flex;flex-direction:column;gap:11px;}
+.sq-divider{display:flex;align-items:center;gap:10px;padding:4px 0;}
+.sq-divider span{font-size:.75rem;font-weight:700;color:var(--ac2);white-space:nowrap;}
+.sq-divider::before,.sq-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+.sq-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.sq-hd{display:flex;align-items:center;gap:10px;padding:12px 15px;}
+.sq-num{background:var(--ac2);color:#111;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sq-title{font-size:.88rem;font-weight:700;color:var(--tx);}
+.sq-sub{font-size:.7rem;color:var(--tx3);margin-top:2px;}
+.sq-body{padding:13px 15px 15px;border-top:1px solid var(--bd);}
+.sq-sent{font-size:.87rem;line-height:2.6;color:var(--tx);word-break:keep-all;}
+.sq-inp{display:inline-block;min-width:64px;border:none;border-bottom:2px solid var(--ac);background:transparent;color:var(--tx);font-family:inherit;font-size:.87rem;text-align:center;padding:1px 6px;outline:none;transition:all .2s;vertical-align:middle;}
+.sq-inp:focus{border-color:var(--ac2);background:rgba(245,200,66,.05);}
+.sq-inp.cor{color:var(--ok);border-color:var(--ok);background:rgba(62,207,142,.06);}
+.sq-inp.wrg{color:var(--ng);border-color:var(--ng);background:rgba(240,90,90,.06);}
+.sq-btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px;}
+.sq-btn-check{background:var(--ac);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.sq-btn-check:hover{background:#4a87e8;}
+.sq-btn-sub{background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:6px 13px;border-radius:8px;font-size:.76rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.sq-btn-sub:hover{color:var(--ac);border-color:var(--ac);}
+.sq-score{margin-top:9px;font-size:.83rem;font-weight:700;min-height:1.4em;}
+.sq-score.ok{color:var(--ok);}
+.sq-score.ng{color:var(--ng);}
+.sq-formula-box{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac2);border-radius:8px;padding:16px 20px;margin:10px 0;text-align:center;font-size:.95rem;line-height:2.4;overflow-x:auto;}
+.sq-ans-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.25);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:.84rem;line-height:1.9;color:var(--tx2);display:none;}
+.sq-ans-box.show{display:block;}
+.sq-ans-box strong{color:var(--ok);}
+.sq-show-btn{background:rgba(62,207,142,.12);color:var(--ok);border:1px solid rgba(62,207,142,.3);padding:7px 18px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px;}
+.sq-show-btn:hover{background:rgba(62,207,142,.22);}
+
+/* ── 햄버거 버튼 ── */
+.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;justify-content:center;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s;}
+.hamburger:hover span{background:var(--ac);}
+
+/* ── 오버레이 ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(2px);}
+.menu-overlay.open{display:block;}
+
+/* ── 사이드 패널 ── */
+.menu-panel{position:fixed;top:0;left:-260px;width:240px;height:100%;background:var(--sf);border-right:1px solid var(--bd);z-index:201;display:flex;flex-direction:column;transition:left .25s cubic-bezier(.4,0,.2,1);}
+.menu-panel.open{left:0;}
+.menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);background:var(--sf2);}
+.menu-title{font-size:.9rem;font-weight:700;color:var(--ac);}
+.menu-close{background:none;border:none;color:var(--tx3);font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:5px;transition:color .2s;}
+.menu-close:hover{color:var(--tx);}
+.menu-body{flex:1;padding:10px 0;overflow-y:auto;}
+.menu-nav{display:flex;flex-direction:column;}
+.menu-item{display:block;padding:12px 20px;font-size:.88rem;color:var(--tx2);text-decoration:none;border-left:3px solid transparent;transition:all .18s;}
+.menu-item:hover{background:rgba(91,156,246,.08);color:var(--ac);border-left-color:var(--ac);}
+
+/* 북마크 아이콘 */
+.bm-icon{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;opacity:.2;}
+.bm-icon.on{opacity:1;}
+
+/* ── 공식모음 페이지 뷰 ── */
+.formula-page{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:var(--bg);overflow-y:auto;
+}
+.formula-page.open{display:block;}
+.fp-hd{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac2);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.fp-back{
+  background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);
+  padding:5px 12px;border-radius:20px;font-size:.78rem;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.fp-back:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fp-title{font-size:.95rem;font-weight:900;color:var(--ac2);}
+.fp-body{max-width:700px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:12px;}
+.fc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.fc-title{
+  padding:10px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);
+  font-size:.78rem;font-weight:700;color:var(--ac2);
+}
+.fc-body{padding:12px 14px;font-size:.84rem;line-height:1.9;color:var(--tx2);}
+.fc-body .fb0{margin:6px 0;}
+.fc-empty{text-align:center;color:var(--tx3);font-size:.84rem;padding:60px 0;line-height:2;}
+.top-btn{
+  position:fixed;bottom:28px;right:18px;z-index:150;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sf2);border:1px solid var(--bd);
+  color:var(--tx3);font-size:.85rem;
+  cursor:pointer;font-family:inherit;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,background .2s,color .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.top-btn.visible{opacity:1;pointer-events:auto;}
+.top-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+
+/* focus 잔상 제거 */
+button:focus,button:focus-visible,
+.stat-btn:focus,.stat-btn:focus-visible{outline:none;}
+.fb:active,.bm-icon:active,.stat-btn:active{filter:brightness(1.2);}
+
+@media(max-width:580px){
+  .qt{font-size:.86rem;}
+  .sq-sent{font-size:.84rem;}
+  .sq-inp{min-width:52px;font-size:.84rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════
+     헤더 — 제목 + 통계 + 버튼
+     ══════════════════════════ -->
+<div class="hd">
+  <button class="hamburger" onclick="toggleMenu()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="hd-title">⚡ 3단원·4단원 · 선로정수·코로나 / 송전특성·조상설비</div>
+  <div class="hd-right">
+    <span class="progress-chip"><span id="st-done">0</span>/<span id="st-total">0</span></span>
+    <div class="stat-btn" id="btnAll" onclick="setView('all')">전체</div>
+    <div class="stat-btn" id="btnNg" onclick="setView('ng')">오답</div>
+    <div class="weak-wrap">
+      <div class="stat-btn" id="btnWeak" onclick="toggleWeakMenu()">
+        <span class="lbl">자주틀림</span><span style="color:#f5963a;">▾</span>
+      </div>
+      <div class="weak-menu" id="weakMenu">
+        <div class="weak-item" onclick="setView('weak',24)">정확률 24% 이하</div>
+        <div class="weak-item" onclick="setView('weak',49)">정확률 49% 이하</div>
+        <div class="weak-item" onclick="setView('weak',74)">정확률 74% 이하</div>
+      </div>
+    </div>
+    <button class="fb danger" onclick="resetAll()">↺</button>
+  </div>
+</div>
+
+<!-- 메뉴 오버레이 -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- 사이드 메뉴 패널 -->
+<div class="menu-panel" id="menuPanel">
+  <div class="menu-header">
+    <span class="menu-title">메뉴</span>
+    <button class="menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-nav">
+      <a class="menu-item" href="https://dyeon723.github.io/jungigigi/">⚡ 전기기기</a>
+      <a class="menu-item" href="https://dyeon723.github.io/junjagihak/">🔬 전자기학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsfurrhdgkr/">🔌 전력공학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsrlhoiro/">🔄 회로이론</a>
+      <a class="menu-item" href="https://dyeon723.github.io/rovPwkdcl/">🔧 개폐장치</a>
+    </nav>
+  </div>
+</div>
+
+<!-- 공식모음 페이지 뷰 (전체화면 전환) -->
+<div class="formula-page" id="formulaPage">
+  <div class="fp-hd">
+    <button class="fp-back" onclick="toggleFormulaSheet()">← 돌아가기</button>
+    <span class="fp-title">📐 공식모음</span>
+  </div>
+  <div class="fp-body" id="fsBody"></div>
+</div>
+
+<!-- 맨 위로 버튼 -->
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'instant'})" aria-label="맨 위로">↑</button>
+
+<!-- 기능 버튼 -->
+<div class="sb">
+  <div class="sb-btns">
+    <button class="fb" onclick="doRand()" ontouchstart="">🔀 순서섞기</button>
+    <button class="fb" onclick="doShuf()" ontouchstart="">🎲 보기섞기</button>
+    <button class="fb" id="btnBM" onclick="toggleBookmark(this)">⭐ 북마크</button>
+    <button class="fb" id="btnFormula" onclick="toggleFormulaSheet()">📐 공식모음</button>
+  </div>
+</div>
+
+<!-- 객관식 출력 영역 -->
+<div class="main" id="main"></div>
+
+
+<!-- ══════════════════════════════════
+     주관식 섹션 — SQS 배열로 자동 생성
+     ══════════════════════════════════ -->
+<div class="sq-wrap" id="sq-wrap"></div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ★★★  데이터만 이 아래에서 수정하세요  ★★★
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ══════════════════════════════════════════════════
+   객관식 문제 데이터  (QS 배열)
+   ──────────────────────────────────────────────────
+   필드 설명:
+     n   : 문제번호 (숫자)
+     q   : 문제 본문 (KaTeX 사용 가능)
+     o   : 보기 배열 ['①내용','②내용','③내용','④내용']
+     ans : 정답 번호 1~4
+     e   : 책 해설 HTML  ← 절대 줄이지 말 것
+     ae  : AI 추가해설 HTML (암기팁·직관적 설명·오답 분석 등 2줄이상 길고 정확하게 적을 것 )
+   ══════════════════════════════════════════════════ */
+const QS = [
+
+  /* ─────────── 여기에 문제 추가 ─────────── */
+
+  // ── 3단원 본문확인기출문제 ──
+  {
+    n:101,
+    q:'3상 3선식 송전선로의 선간거리가 \\(D_1\\), \\(D_2\\), \\(D_3\\)[m]이고, 전선의 지름이 \\(d\\)[m]로서 연가된 경우라면 전선 1[km]의 인덕턴스는 몇 [mH/km]인가?',
+    o:['\\(0.05+0.4605\\log_{10}\\dfrac{\\sqrt[3]{D_1D_2D_3}}{d}\\)',
+       '\\(0.05+0.4605\\log_{10}\\dfrac{2\\sqrt[3]{D_1D_2D_3}}{d}\\)',
+       '\\(0.05+0.4605\\log_{10}\\dfrac{d\\cdot\\sqrt[3]{D_1D_2D_3}}{2}\\)',
+       '\\(0.05+0.4605\\log_{10}\\dfrac{d}{\\sqrt[3]{D_1D_2D_3}}\\)'],
+    ans:2,
+    e:`3상 3선식 등가선간거리 \\(D=\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}\\)[m]<br>
+전선의 지름이 \\(d\\)[m]이므로 반지름 \\(r=\\dfrac{d}{2}\\)이 된다.<br>
+<div class="fb0">\\[\\dfrac{\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}}{\\dfrac{d}{2}}=\\dfrac{2\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}}{d}\\]</div>
+작용 인덕턴스 \\(L=0.05+0.4605\\log_{10}\\dfrac{2\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}}{d}\\)[mH/km]`,
+    ae:``,
+    formula:`<div class="fb0">\\[L=0.05+0.4605\\log_{10}\\dfrac{D}{r}\\;[\\text{mH/km}]\\]</div>
+\\(D\\) : 등가선간거리[cm], \\(r\\) : 전선의 반지름[cm]`
+  },
+  {
+    n:102,
+    q:'선간거리 \\(D\\)이고 반지름이 \\(r\\)인 선로의 정전용량 \\(C\\)[μF/km]는?',
+    o:['\\(\\dfrac{0.2413}{\\log_{10}\\dfrac{r}{D}}\\)',
+       '\\(\\dfrac{0.02413}{\\log_{10}\\dfrac{r}{D}}\\)',
+       '\\(\\dfrac{0.2413}{\\log_{10}\\dfrac{D}{r}}\\)',
+       '\\(\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\)'],
+    ans:4,
+    e:`1선당 작용정전용량<br>
+<div class="fb0">\\[C=C_s+2C_m=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\;[\\mu\\text{F/km}]\\]</div>
+\\(C_s\\) : 대지정전용량[μF/km], \\(C_m\\) : 선간정전용량[μF/km]<br>
+\\(r\\) : 도체의 반경[cm], \\(D\\) : 선간거리[cm]`,
+    ae:``,
+    formula:`<div class="fb0">\\[C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\;[\\mu\\text{F/km}]\\]</div>`
+  },
+  {
+    n:103,
+    q:'전선 a, b, c가 일직선으로 배치되어 있고, a와 b, b와 c 사이의 거리가 각각 5[m]일 때 이 선로의 등가 선간거리는 몇 [m]인가?',
+    o:['5','10','\\(5\\sqrt{2}\\)','\\(5\\sqrt[3]{2}\\)'],
+    ans:4,
+    e:`등가선간거리 \\(D=\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}\\)[m]<br>
+<div class="fb0">\\[=\\sqrt[3]{5\\times5\\times(5\\times2)}=\\sqrt[3]{2}\\times5=5\\sqrt[3]{2}\\]</div>`,
+    ae:``
+  },
+  {
+    n:104,
+    q:'소도체의 반지름이 \\(r\\)[m], 소도체간의 선간거리가 \\(d\\)[m]인 2개의 소도체를 사용한 345[kV] 송전선로가 있다. 복도체의 등가반경은 얼마인가?',
+    o:['\\(\\sqrt{rd}\\)','\\(\\sqrt{rd^2}\\)','\\(\\sqrt{r^2d}\\)','\\(rd\\)'],
+    ans:1,
+    e:`등가반지름 \\(r_e=r^{1/n}\\cdot s^{(n-1)/n}=\\sqrt[n]{rs^{n-1}}\\)<br>
+여기서, \\(r\\) : 소도체의 반지름, \\(n\\) : 소도체수, \\(d\\) : 소도체의 간격<br>
+<div class="fb0">\\[r_e=r^{1/2}\\cdot d^{(2-1)/2}=\\sqrt{r}\\cdot\\sqrt{d}=\\sqrt{rd}\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[r_e=r^{1/n}\\cdot s^{(n-1)/n}=\\sqrt[n]{rs^{n-1}}\\]</div>
+\\(n\\) : 소도체수, \\(s\\) : 소도체간격`
+  },
+  {
+    n:105,
+    q:'연가의 효과가 아닌 것은?',
+    o:['대지정전용량의 감소','통신선의 유도장해 감소','각 상의 임피던스 평형','직렬공진 방지'],
+    ans:1,
+    e:`<strong>연가의 목적</strong><br>
+㉠ 선로정수가 평형된다.<br>
+㉡ 근접통신선에 대한 유도장해를 감소시킨다.<br>
+㉢ 소호 리액터 접지계통에서 중성점의 잔류전압으로 인한 직렬공진을 방지한다.<br>
+저항접지계통에서 선로정수 불평형에 의한 수전단측의 역률저하를 방지한다.`,
+    ae:``
+  },
+  {
+    n:106,
+    q:'표피효과에 대한 설명으로 옳은 것은?',
+    o:['표피효과는 전선의 단면적에 반비례한다.','표피효과는 주파수에 비례한다.','표피효과는 전선의 비투자율에 반비례한다.','표피효과는 도전율에 반비례한다.'],
+    ans:2,
+    e:`<strong>표피효과</strong><br>
+㉠ 전선표면에 가까워질수록 전류가 많이 흐르는 현상이다.<br>
+㉡ 주파수 \\(f\\)[Hz], 투자율 \\(\\mu\\)[H/m], 도전율 \\(\\sigma\\)[℧/m] 및 전선의 지름이 클수록 표피효과는 커진다.`,
+    ae:``
+  },
+  {
+    n:107,
+    q:'복도체에 대한 설명으로 옳지 않은 것은?',
+    o:['같은 단면적의 단도체에 비하여 인덕턴스는 감소하고 정전용량은 증가한다.','코로나 개시전압이 높고 코로나 손실이 적다.','단락 시 등의 대전류가 흐를 때 소도체간에 반발력이 생긴다.','같은 전류용량에 대하여 단도체보다 단면적을 작게 할 수 있다.'],
+    ans:3,
+    e:`복도체방식에서 도체에 흐르는 전류가 같은 방향이므로 도체 사이에 <strong>흡인력</strong>이 발생한다.`,
+    ae:``
+  },
+
+  // ── 3단원 기출 01~27 ──
+  {
+    n:5,
+    q:'그림과 같이 \\(D\\)[m]의 간격으로 반경 \\(r\\)[m]의 두 전선 a, b가 평행으로 가선되어 있는 경우 작용 인덕턴스는 몇 [mH/km]인가?',
+    o:['\\(L=0.05+0.4605\\log_{10}\\dfrac{D}{r}\\)',
+       '\\(L=0.05+0.4605\\log_{10}(rD)\\)',
+       '\\(L=0.05+0.4605\\log_{10}\\dfrac{2D}{r}\\)',
+       '\\(L=0.05+0.4605\\log_{10}\\left(\\dfrac{1}{rD}\\right)\\)'],
+    ans:1,
+    e:`작용 인덕턴스 \\(L=0.05+0.4605\\log_{10}\\dfrac{D}{r}\\)[mH/km]<br>
+여기서, \\(D\\) : 등가선간거리, \\(r\\) : 전선의 반지름`,
+    ae:``,
+    formula:`<div class="fb0">\\[L=0.05+0.4605\\log_{10}\\dfrac{D}{r}\\;[\\text{mH/km}]\\]</div>`
+  },
+  {
+    n:6,
+    q:'3상 3선식 가공송전선로의 선간거리가 각각 \\(D_1\\), \\(D_2\\), \\(D_3\\)일 때 등가선간거리는?',
+    o:['\\(\\sqrt{D_1D_2+D_2D_3+D_3D_1}\\)',
+       '\\(\\sqrt[3]{D_1D_2D_3}\\)',
+       '\\(\\sqrt{D_1^2+D_2^2+D_3^2}\\)',
+       '\\(\\sqrt[3]{D_1^3+D_2^3+D_3^3}\\)'],
+    ans:2,
+    e:`기하학적 등가선간거리<br>
+<div class="fb0">\\[D=\\sqrt[3]{D_1\\times D_2\\times D_3}\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[D=\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}\\;[\\text{m}]\\]</div>`
+  },
+  {
+    n:7,
+    q:'3상 3선식에서 전선의 선간거리가 각각 1[m], 2[m], 4[m]라고 할 때 등가선간거리는 몇 [m]인가?',
+    o:['1','2','3','4'],
+    ans:2,
+    e:`도체간의 기하학적 평균선간거리(등가선간거리)<br>
+<div class="fb0">\\[D_n=\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}=\\sqrt[3]{1\\times2\\times4}=2\\;[\\text{m}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:9,
+    q:'반지름 \\(r\\)[m]인 3상 송전선 A, B, C가 그림과 같이 수평으로 \\(D\\)[m] 간격으로 배치되고 3선이 완전연가된 경우 각 인덕턴스는 몇 [mH/km]인가?',
+    o:['\\(L=0.05+0.4605\\log_{10}\\dfrac{D}{r}\\)',
+       '\\(L=0.05+0.4605\\log_{10}\\dfrac{\\sqrt{2}\\,D}{r}\\)',
+       '\\(L=0.05+0.4605\\log_{10}\\dfrac{\\sqrt{3}\\,D}{r}\\)',
+       '\\(L=0.05+0.4605\\log_{10}\\dfrac{\\sqrt[3]{2}\\,D}{r}\\)'],
+    ans:4,
+    e:`3선의 수평배열 등가선간거리<br>
+<div class="fb0">\\[\\begin{aligned}D&=\\sqrt[3]{D\\times D\\times2D}=\\sqrt[3]{2D^3}=\\sqrt[3]{2}\\times\\sqrt[3]{D^3}=\\sqrt[3]{2}\\,D\\end{aligned}\\]</div>
+작용 인덕턴스 \\(L=0.05+0.4605\\log_{10}\\dfrac{\\sqrt[3]{2}\\,D}{r}\\)[mH/km]`,
+    ae:``
+  },
+  {
+    n:10,
+    q:'길이가 35[km]인 단상 2선식 전선로의 유도 리액턴스는? (단, 전선로 단위길이당 인덕턴스는 1.3[mH/km/선], 주파수 60[Hz]이다)',
+    o:['17','26','34','68'],
+    ans:3,
+    e:`유도 리액턴스 \\(X_L=\\omega L=2\\pi fL\\)[Ω]이고<br>
+\\(L\\)[mH/km/선]이므로 선로길이만큼 배수를 취하고<br>
+단상 2선식이므로 왕복선로, 즉 2배로 한다.<br>
+<div class="fb0">\\[X_L=2\\pi\\times60\\times1.3\\times10^{-3}\\times35\\times2=34\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:11,
+    q:'반지름 14[mm]의 ACSR로 구성된 완전연가된 3상 1회 송전선로가 있다. 각 상간의 등가선간거리가 2800[mm]라고 할 때 이 선로의 [km]당 작용 인덕턴스는 몇 [mH/km]인가?',
+    o:['1.11','1.012','0.83','0.33'],
+    ans:1,
+    e:`<div class="fb0">\\[L=0.05+0.4605\\log_{10}\\dfrac{280}{1.4}=1.11\\;[\\text{mH/km}]\\]</div>
+등가선간거리와 전선의 반지름을 [cm]로 환산한다.<br>
+2800[mm] → 280[cm], 14[mm] → 1.4[cm]`,
+    ae:``
+  },
+  {
+    n:12,
+    q:'3상 3선식 송전선에서 바깥지름 20[mm]의 경동연선을 그림과 같이 일직선 수평배치로 하여 연가를 했을 때 1[km]마다의 인덕턴스는 약 몇 [mH/km]인가? (선간거리 2[m])',
+    o:['1.16','1.32','1.48','1.64'],
+    ans:1,
+    e:`<div class="fb0">\\[\\begin{aligned}L&=0.05+0.4605\\log_{10}\\dfrac{\\sqrt[3]{2}\\times200}{2}\\\\&=1.16\\;[\\text{mH/km}]\\end{aligned}\\]</div>
+등가선간거리와 전선의 반지름을 [cm]로 변환하여 단위를 같게 하여 계산한다.`,
+    ae:``
+  },
+  {
+    n:13,
+    q:'전선 4개의 도체가 정사각형으로 배치되어 있을 때 각 도체간의 거리를 \\(D\\)라 하면 소도체간의 기하평균거리는?',
+    o:['\\(D\\)','\\(4D\\)','\\(\\sqrt[3]{2}\\,D\\)','\\(\\sqrt[6]{2}\\,D\\)'],
+    ans:4,
+    e:`정사각배치의 기하학적 평균거리는 각각의 전선끼리 영향을 미치는 관계를 고려한다.<br>
+<div class="fb0">\\[\\begin{aligned}D&=\\sqrt[6]{D\\times D\\times D\\times D\\times\\sqrt{2}\\,D\\times\\sqrt{2}\\,D}\\\\&=\\sqrt[6]{\\sqrt{2}\\times D^6}=\\sqrt[6]{2}\\,D\\end{aligned}\\]</div>`,
+    ae:``
+  },
+  {
+    n:14,
+    q:'4각형으로 배치된 4도체 송전선이 있다. 소도체의 반지름이 1[cm], 한 변의 길이가 32[cm]일 때 소도체간의 기하학적 평균거리[cm]는?',
+    o:['\\(32\\times2^{1/3}\\)','\\(32\\times2^{1/4}\\)','\\(32\\times2^{1/5}\\)','\\(32\\times2^{1/6}\\)'],
+    ans:4,
+    e:`4각형의 기하학적 평균거리는 \\(D=\\sqrt[6]{2}\\,D\\)이므로<br>
+<div class="fb0">\\[D=\\sqrt[6]{2}\\times32=32\\times2^{1/6}\\]</div>`,
+    ae:``
+  },
+  {
+    n:15,
+    q:'선간거리 \\(D\\), 도체의 반지름 \\(r\\), 도체간의 간격 \\(l\\)인 복도체의 인덕턴스[mH/km]는?',
+    o:['\\(0.4605\\log_{10}\\dfrac{D}{\\sqrt{rl}}+0.05\\)',
+       '\\(0.4605\\log_{10}\\dfrac{D}{\\sqrt{rl}}+0.025\\)',
+       '\\(0.4605\\log_{10}\\dfrac{D}{rl}+0.05\\)',
+       '\\(0.4605\\log_{10}\\dfrac{D}{rl}+0.025\\)'],
+    ans:2,
+    e:`\\(n\\)도체의 경우 작용 인덕턴스<br>
+<div class="fb0">\\[L=\\dfrac{0.05}{n}+0.4605\\log_{10}\\dfrac{D}{r_e}\\;[\\text{mH/km}]\\]</div>
+여기서, \\(n\\) : 소도체수, \\(D\\) : 등가선간거리, \\(r_e\\) : 등가반경<br>
+등가반경 \\(r_e=r^{1/n}l^{(n-1)/n}\\)이므로 복도체의 경우<br>
+\\(r_e=r^{1/2}l^{(2-1)/2}=\\sqrt{r}\\cdot\\sqrt{l}=\\sqrt{rl}\\)<br>
+<div class="fb0">\\[L=\\dfrac{0.05}{2}+0.4605\\log_{10}\\dfrac{D}{\\sqrt{rl}}=0.025+0.4605\\log_{10}\\dfrac{D}{\\sqrt{rl}}\\]</div>`,
+    ae:``
+  },
+  {
+    n:16,
+    q:'등가선간거리 9.37[m], 공칭단면적 330[mm²], 도체 외경 25.3[mm], 복도체 ACSR인 3상 송전선의 인덕턴스는 몇 [mH/km]가? (단, 소도체간격은 40[cm]이다)',
+    o:['1.001','0.010','0.100','1.100'],
+    ans:1,
+    e:`복도체선로의 경우 전선의 인덕턴스<br>
+\\(L=\\dfrac{0.05}{n}+0.4605\\log_{10}\\dfrac{D}{r_e}\\)[mH/km]<br>
+여기서, \\(n\\) : 소도체수, \\(D\\) : 등가선간거리, \\(r_e\\) : 등가반경<br>
+소도체수 \\(n=2\\), 등가선간거리 \\(=937\\)[cm]<br>
+등가반경 \\(r_e=\\sqrt{rs}=\\sqrt{\\dfrac{25.3}{2}\\times40}\\)[cm]<br>
+<div class="fb0">\\[L=0.025+0.4605\\log_{10}\\dfrac{937}{\\sqrt{\\dfrac{2.53}{2}\\times40}}=1.001\\;[\\text{mH/km}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:17,
+    q:'단상 2선식 배전선로에서 대지정전용량을 \\(C_s\\), 선간정전용량을 \\(C_m\\)이라 할 때 작용 정전용량 \\(C_n\\)은?',
+    o:['\\(C_s+C_m\\)','\\(C_s+2C_m\\)','\\(2C_s+C_m\\)','\\(C_s+3C_m\\)'],
+    ans:2,
+    e:`단상 2선식의 1선당 작용정전용량<br>
+<div class="fb0">\\[C=C_s+2C_m=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\;[\\mu\\text{F/km}]\\]</div>
+여기서, \\(C_s\\) : 대지정전용량[μF/km], \\(C_m\\) : 선간정전용량[μF/km]<br>
+\\(r\\) : 도체의 반경[cm], \\(D\\) : 선간거리[cm]`,
+    ae:``
+  },
+  {
+    n:18,
+    q:'3상 3선식 선로에 있어서 각 선의 대지정전용량이 \\(C_s\\)[μF/km], 선간 정전용량이 \\(C_m\\)[μF/km]일 때 1선의 작용정전용량[μF/km]은?',
+    o:['\\(2C_s+C_m\\)','\\(C_s+2C_m\\)','\\(3C_s+C_m\\)','\\(C_s+3C_m\\)'],
+    ans:4,
+    e:`3상 3선식의 1선당 작용정전용량<br>
+<div class="fb0">\\[C=C_s+3C_m\\;[\\mu\\text{F/km}]\\]</div>
+여기서, \\(C_s\\) : 대지정전용량[μF/km], \\(C_m\\) : 선간정전용량[μF/km]`,
+    ae:``
+  },
+  {
+    n:20,
+    q:'3상 3선식 송전선로에서 각 선의 대지정전용량이 0.5096[μF]이고, 선간정전용량이 0.1295[μF]일 때 1선의 작용정전용량은 몇 [μF]인가?',
+    o:['0.6391','0.7686','0.8981','1.5288'],
+    ans:3,
+    e:`3상 3선식의 1선 작용정전용량 \\(C=C_s+3C_m\\)[μF]<br>
+<div class="fb0">\\[C=0.5096+3\\times0.1295=0.8981\\;[\\mu\\text{F}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:22,
+    q:'선간거리가 \\(2D\\)[m]이고 선로도선의 지름이 \\(d\\)[m]인 선로의 단위길이당 정전용량은 몇 [μF/km]인가?',
+    o:['\\(\\dfrac{0.02413}{\\log_{10}\\dfrac{4D}{d}}\\)',
+       '\\(\\dfrac{0.02413}{\\log_{10}\\dfrac{2D}{d}}\\)',
+       '\\(\\dfrac{0.2413}{\\log_{10}\\dfrac{D}{d}}\\)',
+       '\\(\\dfrac{0.2413}{\\log_{10}\\dfrac{4D}{d}}\\)'],
+    ans:1,
+    e:`<div class="fb0">\\[C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}=\\dfrac{0.02413}{\\log_{10}\\dfrac{2D}{d/2}}=\\dfrac{0.02413}{\\log_{10}\\dfrac{4D}{d}}\\;[\\mu\\text{F/km}]\\]</div>
+여기서, \\(d\\) : 도체의 반경[cm], \\(D\\) : 선간거리[cm]`,
+    ae:``
+  },
+  {
+    n:23,
+    q:'3상 3선식 1회선의 가공송전선로에서 \\(D\\)를 선간거리, \\(r\\)을 전선의 반지름이라고 하면 1선당의 정전용량 \\(C\\)는?',
+    o:['\\(\\log_{10}\\dfrac{D}{r}\\)에 비례',
+       '\\(\\log_{10}\\dfrac{D}{r}\\)에 반비례',
+       '\\(\\dfrac{D}{r^2}\\)에 비례',
+       '\\(\\dfrac{D}{r}\\)에 비례'],
+    ans:2,
+    e:`전선의 1선당 작용정전용량<br>
+<div class="fb0">\\[C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\propto\\dfrac{1}{\\log_{10}\\dfrac{D}{r}}\\]</div>
+이 된다.`,
+    ae:``
+  },
+  {
+    n:24,
+    q:'삼각형 배치의 선간거리가 5[m]이고, 전선의 지름이 1[cm]인 3상 가공송전선의 1선의 정전용량은 약 몇 [μF/km]인가?',
+    o:['0.008','0.016','0.024','0.032'],
+    ans:1,
+    e:`도체간의 등가선간거리 \\(D_n=\\sqrt[3]{D_1\\cdot D_2\\cdot D_3}=\\sqrt[3]{5^3}=5\\)[m]<br>
+<div class="fb0">\\[C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}=\\dfrac{0.02413}{\\log_{10}\\dfrac{500}{0.5}}=0.008\\;[\\mu\\text{F/km}]\\]</div>
+도체반경과 선간거리를 [cm]로 하여 \\(\\dfrac{D}{r}=\\dfrac{500}{0.5}\\)을 적용한다.`,
+    ae:``
+  },
+  {
+    n:27,
+    q:'소도체 2개로 된 복도체방식 3상 3선식 송전선로가 있다. 소도체의 지름 2[cm], 소도체의 간격 16[cm], 등가선간거리가 200[cm]인 경우 1상당 작용정전용량은 몇 [μF/km]인가?',
+    o:['0.14','0.0142','0.02413','0.04826'],
+    ans:2,
+    e:`1선당 작용정전용량 \\(C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\)[μF/km]<br>
+복도체의 1상당 작용정전용량<br>
+<div class="fb0">\\[C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{\\sqrt{rs}}}=\\dfrac{0.02413}{\\log_{10}\\dfrac{200}{\\sqrt{\\frac{2}{2}\\times16}}}=0.0142\\;[\\mu\\text{F/km}]\\]</div>`,
+    ae:``
+  },
+
+  // ── 3단원 기출 28~54 ──
+  {
+    n:28,
+    q:'송전선로의 정전용량은 등가선간거리 \\(D\\)가 증가하면 어떻게 되는가?',
+    o:['증가한다.','감소한다.','변하지 않는다.','\\(D^2\\)에 반비례하여 감소한다.'],
+    ans:2,
+    e:`정전용량 \\(C=\\dfrac{0.02413}{\\log_{10}\\dfrac{D}{r}}\\)에서 선간거리 \\(D\\)를 증가시키면 정전용량은 감소한다.`,
+    ae:``
+  },
+  {
+    n:29,
+    q:'3상 3선식 송전선을 연가할 경우 일반적으로 전체 선로길이를 몇 등분해서 연가하는가?',
+    o:['5','4','3','2'],
+    ans:3,
+    e:`연가는 송전선로에 근접한 통신선에 대한 유도장해를 방지하기 위해 선로구간을 3등분하여 전선의 배치를 상호변경하여 선로정수를 평형시키는 방법이다.`,
+    ae:``
+  },
+  {
+    n:30,
+    q:'송전선로를 연가하는 목적은 무엇인가?',
+    o:['페란티 효과 방지','직격뢰 방지','선로정수의 평형','유도뢰의 방지'],
+    ans:3,
+    e:`<strong>연가의 목적</strong><br>
+㉠ 선로정수의 평형<br>
+㉡ 근접통신선에 대한 유도장해 감소<br>
+㉢ 소호 리액터 접지계통에서 중성점의 잔류전압으로 인한 직렬공진의 방지`,
+    ae:``
+  },
+  {
+    n:31,
+    q:'선로정수를 전체적으로 평형되게 하고 근접통신선에 대한 유도장해를 줄일 수 있는 방법은?',
+    o:['딥(dip)을 준다.','연가를 한다.','복도체를 사용한다.','소호 리액터 접지를 한다.'],
+    ans:2,
+    e:`<strong>연가의 목적</strong><br>
+㉠ 선로정수의 평형<br>
+㉡ 근접통신선에 대한 유도장해 감소<br>
+㉢ 소호 리액터 접지계통에서 중성점의 잔류전압으로 인한 직렬공진의 방지`,
+    ae:``
+  },
+  {
+    n:32,
+    q:'연가해도 효과가 없는 것은?',
+    o:['선로정수의 평형','유도뢰의 방지','정전용량 감소','각 상의 임피던스 평형'],
+    ans:2,
+    e:`유도뢰의 방지를 위해서는 가공지선을 설치하고 철탑의 탑각접지저항을 낮추어야 한다.`,
+    ae:``
+  },
+  {
+    n:33,
+    q:'전선에서 전류의 밀도가 도선의 중심으로 들어갈수록 작아지는 현상은?',
+    o:['페란티 효과','표피효과','근접효과','접지효과'],
+    ans:2,
+    e:`<strong>전선에서 발생하는 이상현상</strong><br>
+㉠ 페란티 현상 : 선로에 흐르는 충전전류로 인해 수전단 전압이 송전단전압보다 높아지는 현상<br>
+㉡ 표피효과 : 전선표면에 가까워질수록 전류가 많이 흐르는 현상<br>
+㉢ 근접효과 : 같은 방향의 전류는 바깥쪽으로, 다른 방향의 전류는 안으로 집중하는 현상`,
+    ae:``
+  },
+  {
+    n:35,
+    q:'3상 수직배치인 선로에서 오프셋(off-set)을 설치하는 이유는?',
+    o:['전선의 진동 억제','단락 방지','철탑중량 감소','전선의 풍압 감소'],
+    ans:2,
+    e:`철탑의 암의 길이를 다르게 하는 오프셋은 피빙 도약으로 인한 상·하선의 단락을 방지하기 위해 전선이 수직 배치인 개소에 설치한다.`,
+    ae:``
+  },
+  {
+    n:36,
+    q:'다음 중 철탑에서 전선의 오프셋을 하는 주된 이유는?',
+    o:['불평형 전압의 유도 방지','지락사고 방지','전선의 진동 방지','상·하선의 혼촉 방지'],
+    ans:4,
+    e:`오프셋은 송전선의 착빙설이 지면으로 떨어지면서 발생하는 피빙 도약에 의한 상·하선의 단락을 방지하기 위해 사용한다.`,
+    ae:``
+  },
+  {
+    n:37,
+    q:'공기의 파열극한 전위경도는 정현파교류의 실효값으로 약 몇 [kV/cm]인가?',
+    o:['21','25','30','33'],
+    ans:1,
+    e:`<strong>공기의 파열극한 전위경도</strong><br>
+㉠ 1[cm] 간격의 두 평면전극 사이의 공기절연이 파괴되어 전극간 아크가 발생하는 전압이다.<br>
+㉡ 직류 : 30[kV/cm], 교류 : 21.1[kV/cm]`,
+    ae:``
+  },
+  {
+    n:38,
+    q:'송전선로에서 코로나가 발생하면 전선이 부식된다. 다음의 무엇에 의하여 부식되는 것인가?',
+    o:['산소','질소','수소','오존'],
+    ans:4,
+    e:`송전선로에서 코로나가 일어나면 공기절연이 파괴되면서 \\(\\text{O}_3\\)(오존)이 발생하며 주위의 빗물과 화학적 반응에 의해 초산이 형성되므로 전선이 부식된다.`,
+    ae:``
+  },
+  {
+    n:39,
+    q:'송전선로의 코로나 손실을 나타내는 Peek 식에서 \\(E_o\\)에 해당하는 것은?',
+    o:['코로나 임계전압','전선에 감하는 대지전압','송전단전압','기준 충격절연 강도전압'],
+    ans:1,
+    e:`송전선로의 코로나 손실을 나타내는 Peek식<br>
+<div class="fb0">\\[P_c=\\dfrac{241}{\\delta}(f+25)\\sqrt{\\dfrac{d}{2D}}(E-E_o)^2\\times10^{-5}\\;[\\text{kW/km/선}]\\]</div>
+여기서, \\(E_o\\) : 코로나 임계전압`,
+    ae:``,
+    formula:`<div class="fb0">\\[P_c=\\dfrac{241}{\\delta}(f+25)\\sqrt{\\dfrac{d}{2D}}(E-E_o)^2\\times10^{-5}\\;[\\text{kW/km/선}]\\]</div>
+\\(\\delta\\) : 상대공기밀도, \\(d\\) : 전선 지름[cm], \\(D\\) : 선간거리[cm], \\(E_o\\) : 코로나 임계전압[kV]`
+  },
+  {
+    n:44,
+    q:'다음 중 송전선로의 코로나 임계전압이 높아지는 경우는?',
+    o:['기압이 낮아지는 경우','전선의 지름이 큰 경우','온도가 높아지는 경우','상대공기밀도가 작은 경우'],
+    ans:2,
+    e:`전선의 지름(\\(d\\))이 크거나 상대공기밀도(\\(\\delta\\))가 높고 기압과 온도가 높을 때 코로나 임계전압이 높아진다.<br>
+코로나 임계전압 \\(E_o=24.3m_om_1\\delta d\\log_{10}\\dfrac{D}{r}\\)[kV]<br>
+여기서, \\(m_o\\) : 전선표면에 정해지는 계수 → 매끈한 전선=1.0, 거친 전선=0.8<br>
+\\(m_1\\) : 날씨에 관한 계수 → 맑은 날=1.0, 우천 시=0.8<br>
+\\(\\delta\\) : 상대공기밀도 \\(\\left(\\dfrac{0.386b}{273+t}\\right)\\)<br>
+\\(b\\) : 기압[mmHg], \\(d\\) : 전선직경[cm], \\(t\\) : 온도[℃], \\(D\\) : 선간거리[cm]`,
+    ae:``
+  },
+  {
+    n:45,
+    q:'코로나 방지대책으로 적당하지 않은 것은?',
+    o:['전선의 외경을 크게 한다.','선간거리를 증가시킨다.','복도체방식을 채용한다.','가선금구를 개량한다.'],
+    ans:2,
+    e:`<strong>코로나 방지대책</strong><br>
+㉠ 굵은 전선(ACSR)을 사용하여 코로나 임계전압을 높인다.<br>
+㉡ 등기반경이 큰 복도체 및 다도체 방식을 채택한다.<br>
+㉢ 가선금구류를 개량한다.`,
+    ae:``
+  },
+  {
+    n:46,
+    q:'다음 송전선로의 코로나 발생방지대책으로 가장 효과적인 방법은?',
+    o:['전선의 선간거리를 증가시킨다.','선로의 대지절연을 강화한다.','철탑의 접지저항을 낮게 한다.','전선을 굵게 하거나 복도체를 사용한다.'],
+    ans:4,
+    e:`코로나 임계전압 \\(E_o=24.3m_om_1\\delta d\\log_{10}\\dfrac{D}{r}\\)[kV]에서<br>
+코로나 임계전압이 전선의 지름(\\(d\\))에 비례하므로 굵은 전선을 사용하거나 단도체 대신 복도체를 사용하는 경우 임계전압이 증가하여 코로나 발생을 억제할 수 있다.`,
+    ae:``
+  },
+  {
+    n:49,
+    q:'다도체를 사용한 송전선로가 있다. 단도체를 사용했을 때와 비교할 때 옳은 것은? (단, \\(L\\) : 작용 인덕턴스, \\(C\\) : 작용정전용량)',
+    o:['\\(L\\)과 \\(C\\) 모두 감소한다.','\\(L\\)과 \\(C\\) 모두 증가한다.','\\(L\\)은 감소하고, \\(C\\)는 증가한다.','\\(L\\)은 증가하고, \\(C\\)는 감소한다.'],
+    ans:3,
+    e:`<strong>복도체나 다도체를 사용할 때 특성</strong><br>
+㉠ 인덕턴스는 감소하고 정전용량은 증가한다.<br>
+㉡ 같은 단면적의 단도체에 비해 전류용량이 증대된다.<br>
+㉢ 안정도가 증가하여 송전용량이 증가한다.<br>
+㉣ 등기반경이 커져 코로나 임계전압의 상승으로 코로나 현상이 방지된다.`,
+    ae:``
+  },
+  {
+    n:50,
+    q:'송전선로에 복도체를 사용하는 이유는?',
+    o:['철탑의 하중을 평형시키기 위해서이다.','선로의 진동을 없애기 위해서이다.','선로를 뇌격으로부터 보호하기 위해서이다.','코로나를 방지하고 인덕턴스를 감소시키기 위해서이다.'],
+    ans:4,
+    e:`복도체 및 다도체는 등가단면적의 단선에 비해서 다음과 같은 특성이 있다.<br>
+㉠ 코로나 임계전압은 15∼20[%] 상승하여 코로나를 방지한다.<br>
+㉡ 인덕턴스는 20∼30[%] 감소하고 정전용량은 20[%] 정도 증가한다.<br>
+㉢ 중부하 송전선로에서는 조상설비를 절약할 수 있고 안정도가 증대한다.<br>
+㉣ 안정도가 증가하여 송전전력이 증대된다.`,
+    ae:``
+  },
+  {
+    n:52,
+    q:'복도체 또는 다도체에 대한 설명으로 옳지 않은 것은?',
+    o:['복도체는 3상 송전선의 1상의 전선을 2본으로 분할한 것이다.','2본 이상으로 분할된 도체를 일반적으로 다도체라고 한다.','복도체 또는 다도체를 사용하는 주목적은 코로나 방지에 있다.','복도체의 선로정수는 같은 단면적의 단도체선로에 비할 때 변함이 없다.'],
+    ans:4,
+    e:`복도체를 사용하면 같은 단면적의 단도체에 비해 인덕턴스는 20[%] 정도 감소하고 정전용량은 20[%] 정도 증가한다.`,
+    ae:``
+  },
+  {
+    n:54,
+    q:'2복도체 선로가 있다. 소도체의 지름이 8[mm], 소도체 사이의 간격이 40[cm]일 때 등가반지름은 몇 [cm]인가?',
+    o:['2.8','3.5','4.0','5.7'],
+    ans:3,
+    e:`복도체선로의 등가반지름 \\(r_2=\\sqrt{rs}\\)<br>
+소도체 반지름 및 소도체 사이의 간격을 [cm] 단위를 맞추어서 다음과 같이 계산한다.<br>
+<div class="fb0">\\[r=\\sqrt{rs}=\\sqrt{\\dfrac{0.8}{2}\\times40}=4\\;[\\text{cm}]\\]</div>`,
+    ae:``
+  },
+
+  // ── 4단원 본문확인기출문제 ──
+  {
+    n:201,
+    q:'저항 10[Ω], 리액턴스 15[Ω]인 3상 송전선이 있다. 수전단전압 60[kV], 부하역률 80[%], 전류 100[A]라고 한다. 이때, 송전단전압은 몇 [V]인가?',
+    o:['55750','55950','81560','62941'],
+    ans:4,
+    e:`<div class="fb0">\\[\\begin{aligned}V_S&=V_R+\\sqrt{3}\\,I_n(r\\cos\\theta+x\\sin\\theta)\\\\&=60000+\\sqrt{3}\\times100\\times(10\\times0.8+15\\times0.6)\\\\&=62941\\;[\\text{V}]\\end{aligned}\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[V_S=V_R+\\sqrt{3}\\,I_n(r\\cos\\theta+x\\sin\\theta)\\;[\\text{V}]\\]</div>`
+  },
+  {
+    n:202,
+    q:'T형 회로에서 4단자정수 \\(A\\)는?',
+    o:['\\(Z\\left(1+\\dfrac{ZY}{4}\\right)\\)','\\(Y\\)','\\(1+\\dfrac{ZY}{2}\\)','\\(Z\\)'],
+    ans:3,
+    e:`T형 회로<br>
+<div class="fb0">\\[\\begin{aligned}E_S&=\\left(1+\\dfrac{ZY}{2}\\right)E_R+Z\\left(1+\\dfrac{ZY}{4}\\right)I_R\\\\I_S&=YE_R+\\left(1+\\dfrac{ZY}{2}\\right)I_R\\end{aligned}\\]</div>
+\\(\\therefore\\) 4단자정수 \\(A\\)는 \\(1+\\dfrac{ZY}{2}\\)가 된다.`,
+    ae:``
+  },
+  {
+    n:203,
+    q:'송전선로에서 4단자정수 \\(A\\), \\(B\\), \\(C\\), \\(D\\) 사이의 관계는?',
+    o:['\\(BC-AD=1\\)','\\(AC-BD=1\\)','\\(AB-CD=1\\)','\\(AD-BC=1\\)'],
+    ans:4,
+    e:`기본관계식 \\(AD-BC=1\\)`,
+    ae:``
+  },
+  {
+    n:204,
+    q:'송전선의 4단자정수가 \\(A=D=0.92\\), \\(B=j80\\)[Ω]일 때 \\(C\\)의 값은 몇 [℧]인가?',
+    o:['\\(j1.92\\times10^{-4}\\)','\\(j2.47\\times10^{-4}\\)','\\(j1.92\\times10^{-3}\\)','\\(j2.47\\times10^{-3}\\)'],
+    ans:3,
+    e:`\\(AD-BC=1\\)에서<br>
+<div class="fb0">\\[C=\\dfrac{AD-1}{B}=\\dfrac{0.92\\times0.92-1}{j80}=j1.92\\times10^{-3}\\;[\\mho]\\]</div>`,
+    ae:``
+  },
+  {
+    n:205,
+    q:'장거리송전선로에서 4단자정수가 같은 것은?',
+    o:['\\(A=B\\)','\\(B=C\\)','\\(C=D\\)','\\(A=D\\)'],
+    ans:4,
+    e:`장거리송전선로 4단자정수<br>
+\\(\\dot{E}_S=\\cosh\\gamma l\\cdot E_R+Z_o\\sinh\\gamma l\\cdot I_R\\)<br>
+\\(\\dot{I}_S=\\dfrac{1}{Z_o}\\sinh\\gamma l\\cdot E_R+\\cosh\\gamma l\\cdot I_R\\)<br>
+\\(\\therefore A=D=\\cosh\\gamma l\\)가 된다.`,
+    ae:``
+  },
+  {
+    n:206,
+    q:'단위길이의 임피던스를 \\(Z\\), 어드미턴스를 \\(Y\\)라 할 때 선로의 특성 임피던스는?',
+    o:['\\(\\sqrt{\\dfrac{Y}{Z}}\\)','\\(\\sqrt{\\dfrac{Z}{Y}}\\)','\\(\\sqrt{ZY}\\)','\\(Y\\)'],
+    ans:2,
+    e:`<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{Z}{Y}}=\\sqrt{\\dfrac{r+j\\omega L}{g+j\\omega C}}\\approx\\sqrt{\\dfrac{L}{C}}\\;[\\Omega]\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{Z}{Y}}=\\sqrt{\\dfrac{L}{C}}\\;[\\Omega]\\]</div>`
+  },
+  {
+    n:207,
+    q:'가공송전선의 인덕턴스가 1.3[mH/km]이고, 정전용량이 0.009[μF/km]일 때 파동 임피던스는 몇 [Ω]인가?',
+    o:['350','380','400','420'],
+    ans:2,
+    e:`<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{L}{C}}=\\sqrt{\\dfrac{1.3\\times10^{-3}}{0.009\\times10^{-6}}}=380\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:208,
+    q:'단위길이당 임피던스 \\(Z\\), 어드미턴스를 \\(Y\\)인 송전선의 전파정수는?',
+    o:['\\(\\sqrt{\\dfrac{Y}{Z}}\\)','\\(\\sqrt{\\dfrac{Z}{Y}}\\)','\\(\\sqrt{\\dfrac{1}{ZY}}\\)','\\(\\sqrt{ZY}\\)'],
+    ans:4,
+    e:`<div class="fb0">\\[\\gamma=\\sqrt{ZY}=\\sqrt{(r+j\\omega L)(g+j\\omega C)}=j\\omega\\sqrt{LC}\\approx\\sqrt{LC}\\]</div>
+특성 임피던스 \\(Z_o=\\sqrt{Z/Y}\\)`,
+    ae:``
+  },
+  {
+    n:209,
+    q:'\\(E_S=AE_R+BI_R\\), \\(I_S=CE_R+DI_R\\)의 전파방정식을 만족하는 전력원선도의 반경의 크기는 다음 중 어느 것인가?',
+    o:['\\(\\dfrac{E_SE_R}{D}\\)','\\(\\dfrac{E_SE_R}{C}\\)','\\(\\dfrac{E_SE_R}{B}\\)','\\(\\dfrac{E_SE_R}{A}\\)'],
+    ans:3,
+    e:`전력원선도의 반지름 \\(R=\\dfrac{E_SE_R}{Z}=\\dfrac{E_SE_R}{B}\\)`,
+    ae:``,
+    formula:`<div class="fb0">\\[R=\\dfrac{E_SE_R}{B}\\]</div>`
+  },
+  {
+    n:210,
+    q:'60[Hz], 154[kV], 길이 100[km]인 3상 송전선로에서 대지정전용량 \\(C_s=0.005\\)[μF/km], 전선간의 선간정전용량 \\(C_m=0.0014\\)[μF/km]일 때 1선에 흐르는 충전전류는 약 몇 [A]인가?',
+    o:['17.8','30.8','34.4','53.4'],
+    ans:2,
+    e:`<div class="fb0">\\[\\begin{aligned}I_c&=2\\pi f(C_s+3C_m)\\dfrac{V_n}{\\sqrt{3}}l\\times10^{-6}\\\\&=2\\pi\\times60\\times(0.005+3\\times0.0014)\\times\\dfrac{154000}{\\sqrt{3}}\\times100\\times10^{-6}\\\\&=30.8\\;[\\text{A}]\\end{aligned}\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[I_c=2\\pi f(C_s+3C_m)\\dfrac{V_n}{\\sqrt{3}}l\\times10^{-6}\\;[\\text{A}]\\]</div>`
+  },
+  {
+    n:211,
+    q:'송전선로로의 페란티 현상을 방지하는 데 효과적인 것은?',
+    o:['분로 리액터 사용','복도체 사용','병렬 콘덴서 사용','직렬 콘덴서 사용'],
+    ans:1,
+    e:`<strong>페란티 현상</strong><br>
+㉠ 무부하 및 경부하 시 선로에 충전전류가 흐르면 수전단전압이 송전단전압보다 높아지는 현상으로 그 원인은 선로의 정전용량 때문에 발생한다.<br>
+㉡ 방지책 : 동기조상기, 분로 리액터`,
+    ae:``
+  },
+  {
+    n:212,
+    q:'동기조상기에 대한 다음 설명 중 옳지 않은 것은?',
+    o:['선로의 시충전이 불가능하다.','중부하 시에는 과여자로 운전하여 앞선 전류를 취한다.','경부하 시에는 부족여자로 운전하여 뒤진 전류를 취한다.','전압조정이 연속적이다.'],
+    ans:1,
+    e:`동기조상기는 시송전(시충전) 시 발전기로 운전하여 충전전류를 공급하여 안정도를 증진시키고 송전전력을 증가시킬 수 있다.`,
+    ae:``
+  },
+  {
+    n:213,
+    q:'직렬 콘덴서를 선로에 삽입할 때의 현상으로 옳은 것은?',
+    o:['장거리선로의 인덕턴스를 보상하므로 전압강하가 많아진다.','부하의 역률이 나쁜 선로일수록 효과가 좋다.','수전단의 전압변동율을 증가시킨다.','정태안정도가 감소하여서 최대 송전전력이 커진다.'],
+    ans:2,
+    e:`<strong>직렬 콘덴서 설치 시 이점</strong><br>
+㉠ 선로의 인덕턴스를 보상하여 전압강하를 줄인다.<br>
+㉡ 안정도가 증가하여 송전전력이 커진다.<br>
+㉢ 부하역률이 나쁜 선로일수록 설치효과가 좋다.<br>
+㉣ 수전단 전압변동률을 줄인다.`,
+    ae:``
+  },
+
+  // ── 4단원 기출 01~32 ──
+  {
+    n:55,
+    q:'저항이 9.5[Ω]이고 리액턴스가 13.5[Ω]인 22.9[kV] 선로에서 수전단전압이 21[kV], 역률이 0.8(lag) 전압변동률이 10[%]라고 할 때 송전단전압은 몇 [kV]인가?',
+    o:['22.1','23.1','24.1','25.1'],
+    ans:2,
+    e:`<div class="fb0">\\[\\begin{aligned}\\%e&=\\dfrac{\\sqrt{3}\\,I_n(r\\cos\\theta+x\\sin\\theta)}{V_R}\\times100=10[\\%]\\\\I_n&=\\dfrac{10\\times21000}{\\sqrt{3}\\times100\\times(9.5\\times0.8+13.5\\times0.6)}=77.23\\;[\\text{A}]\\\\V_S&=21000+\\sqrt{3}\\times77.23\\times(9.5\\times0.8+13.5\\times0.6)\\\\&\\approx23.1\\;[\\text{kV}]\\end{aligned}\\]</div>`,
+    ae:``
+  },
+  {
+    n:56,
+    q:'수전단전압 60000[V], 전류 200[A], 선로 저항 \\(R=7.61\\)[Ω], 리액턴스 \\(X=11.85\\)[Ω]인 3상 단거리 송전선로의 전압강하율은 몇 [%]인가? (단, 수전단역률은 0.8임)',
+    o:['6.51','7.62','8.42','9.43'],
+    ans:2,
+    e:`<div class="fb0">\\[\\%e=\\dfrac{\\sqrt{3}\\times200\\times(7.61\\times0.8+11.85\\times0.6)}{60000}\\times100=7.62\\;[\\%]\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[\\%e=\\dfrac{\\sqrt{3}\\,I_n(r\\cos\\theta+x\\sin\\theta)}{V_R}\\times100\\;[\\%]\\]</div>`
+  },
+  {
+    n:57,
+    q:'선로의 길이가 10[km], 전선 1조당 저항이 0.4[Ω/km], 리액턴스가 0.6[Ω/km]인 3상 배전선에서 수전단전압을 20[kV], 부하역률을 0.8로 유지하고 선로손실을 5[%] 이내로 하기 위한 부하의 최대 전력은 몇 [kW]인가?',
+    o:['1070','3200','5000','9600'],
+    ans:2,
+    e:`전력손실 \\(P_c=3I^2r=0.05P\\)와<br>
+부하전력 \\(P=\\sqrt{3}\\,V_RI_n\\cos\\theta\\)에서<br>
+<div class="fb0">\\[\\begin{aligned}I_n&=\\dfrac{0.05\\times\\sqrt{3}\\times20000\\times0.8}{0.4\\times10\\times3}=115.47\\;[\\text{A}]\\\\P&=\\sqrt{3}\\times20000\\times115.4\\times0.8\\times10^{-3}\\\\&=3200\\;[\\text{kW}]\\end{aligned}\\]</div>`,
+    ae:``
+  },
+  {
+    n:58,
+    q:'단거리 송전선의 4단자정수 \\(A\\), \\(B\\), \\(C\\), \\(D\\) 중 그 값이 0인 정수는?',
+    o:['\\(A\\)','\\(B\\)','\\(C\\)','\\(D\\)'],
+    ans:3,
+    e:`단거리 송전선로는 선로의 길이가 짧아 선로와 대지 사이의 정전용량 및 누설 컨덕턴스가 무시할 만큼 작게 나타난다.`,
+    ae:``
+  },
+  {
+    n:59,
+    q:'T회로의 일반회로정수에서 \\(C\\)는 무엇을 의미하는가?',
+    o:['저항','리액턴스','임피던스','어드미턴스'],
+    ans:4,
+    e:`T형 회로의 4단자정수에서 \\(C=Y\\)이므로 어드미턴스를 의미한다.`,
+    ae:``
+  },
+  {
+    n:60,
+    q:'중거리 송전선로의 T형 회로에서 송전단전류 \\(I_S\\)는? (단, \\(Z\\), \\(Y\\)는 선로의 직렬 임피던스와 병렬 어드미턴스이고 \\(E_R\\)은 수전단전압, \\(I_R\\)은 수전단전류이다)',
+    o:['\\(I_R\\left(1+\\dfrac{ZY}{2}\\right)+YE_R\\)',
+       '\\(E_R\\left(1+\\dfrac{ZY}{2}\\right)+ZI_R\\left(1+\\dfrac{ZY}{4}\\right)\\)',
+       '\\(E_R\\left(1+\\dfrac{ZY}{2}\\right)+ZI_R\\)',
+       '\\(I_R\\left(1+\\dfrac{ZY}{2}\\right)+E_RY\\left(1+\\dfrac{ZY}{4}\\right)\\)'],
+    ans:1,
+    e:`T형 회로의 송전단전류<br>
+<div class="fb0">\\[I_S=YE_R+\\left(1+\\dfrac{ZY}{2}\\right)I_R\\]</div>`,
+    ae:``
+  },
+  {
+    n:63,
+    q:'\\(\\pi\\)형 회로의 일반회로정수에서 \\(B\\)의 값은?',
+    o:['\\(Y\\)','\\(Z\\)','\\(1+\\dfrac{ZY}{2}\\)','\\(Y\\left(1+\\dfrac{ZY}{4}\\right)\\)'],
+    ans:2,
+    e:`\\(\\pi\\)형 합성 4단자정수에서 \\(B=Z\\)이므로 임피던스를 의미한다.`,
+    ae:``
+  },
+  {
+    n:64,
+    q:'154[kV], 300[km]의 3상 송전선에서 일반회로정수는 \\(\\dot{A}=0.930\\), \\(\\dot{B}=j150\\), \\(\\dot{C}=j0.90\\times10^{-3}\\), \\(\\dot{D}=0.930\\)이다. 이 송전선에서 무부하 시 송전단에 154[kV]를 가했을 때 수전단전압은 약 몇 [kV]인가?',
+    o:['143','154','166','171'],
+    ans:3,
+    e:`무부하 시 수전단전류 \\(I_R=0\\)이므로<br>
+\\(E_S=AE_R+B\\times0=AE_R\\)<br>
+<div class="fb0">\\[E_R=\\dfrac{E_S}{A}=\\dfrac{154}{0.93}=165.59\\approx166\\;[\\text{kV}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:66,
+    q:'그림과 같이 회로정수 \\(A\\), \\(B\\), \\(C\\), \\(D\\)인 송전선로에 변압기 임피던스 \\(Z_R\\)을 수전단에 접속했을 때 변압기 임피던스 \\(Z_R\\)을 포함한 새로운 회로정수 \\(D_o\\)는?',
+    o:['\\(B+AZ_R\\)','\\(B+CZ_R\\)','\\(D+AZ_R\\)','\\(D+CZ_R\\)'],
+    ans:4,
+    e:`수전단에 \\(Z_R\\)이 직렬 접속되므로<br>
+<div class="fb0">\\[\\begin{bmatrix}A_o&B_o\\\\C_o&D_o\\end{bmatrix}=\\begin{bmatrix}A&B\\\\C&D\\end{bmatrix}\\begin{bmatrix}1&Z_R\\\\0&1\\end{bmatrix}=\\begin{bmatrix}A&AZ_R+B\\\\C&CZ_R+D\\end{bmatrix}\\]</div>
+\\(D_o=CZ_R+D\\)`,
+    ae:``
+  },
+  {
+    n:73,
+    q:'장거리 송전선로의 특성은 무슨 회로로 나누는 것이 가장 좋은가?',
+    o:['특성 임피던스 회로','집중정수회로','분포정수회로','분산회로'],
+    ans:3,
+    e:`<strong>분포정수회로</strong><br>
+송전선로의 100[km] 이상이 되면 선로정수가 전선로에 따라 균일하게 분포되어 있는 분포정수회로로 해석해야 한다.<br>
+<strong>집중정수회로</strong><br>
+・단거리 송전선로 : \\(R\\), \\(L\\) 적용<br>
+・중거리 송전선로 : \\(R\\), \\(L\\), \\(C\\) 적용`,
+    ae:``
+  },
+  {
+    n:76,
+    q:'선로의 단위길이당 분포 인덕턴스, 저항, 정전용량, 누설 컨덕턴스를 \\(L\\), \\(r\\), \\(C\\) 및 \\(g\\)로 할 때 특성 임피던스[Ω]는?',
+    o:['\\((r+j\\omega L)(g+j\\omega C)\\)',
+       '\\(\\sqrt{(r+j\\omega L)(g+j\\omega C)}\\)',
+       '\\(\\sqrt{\\dfrac{r+j\\omega L}{g+j\\omega C}}\\)',
+       '\\(\\sqrt{\\dfrac{g+j\\omega C}{r+j\\omega L}}\\)'],
+    ans:3,
+    e:`<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{Z}{Y}}=\\sqrt{\\dfrac{r+j\\omega L}{g+j\\omega C}}\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:77,
+    q:'장거리 송전선에서 단위길이당 임피던스 \\(Z=r+j\\omega L\\)[Ω/km], 어드미턴스 \\(Y=g+j\\omega C\\)[℧/km]라 할 때 저항과 누설 컨덕턴스를 무시하는 경우 특성 임피던스[Ω]는?',
+    o:['\\(\\sqrt{\\dfrac{L}{C}}\\)','\\(\\sqrt{\\dfrac{C}{L}}\\)','\\(\\dfrac{L}{C}\\)','\\(\\dfrac{C}{L}\\)'],
+    ans:1,
+    e:`무손실선로(\\(r=g=0\\)):<br>
+<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{j\\omega L}{j\\omega C}}=\\sqrt{\\dfrac{L}{C}}\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:79,
+    q:'선로의 특성 임피던스에 관한 내용으로 옳은 것은?',
+    o:['선로의 길이가 길어질수록 값이 커진다.','선로의 길이가 길어질수록 값이 작아진다.','선로의 길이보다는 부하전력에 따라 값이 변한다.','선로의 길이에 관계없이 일정하다.'],
+    ans:4,
+    e:`특성 임피던스 \\(Z_o=\\sqrt{Z/Y}=\\sqrt{(R+j\\omega L)/(g+j\\omega C)}\\rightarrow\\sqrt{L/C}\\)[Ω]<br>
+\\(L\\)[mH/km]이고 \\(C\\)[μF/km]이므로 특성 임피던스는 선로의 길이에 관계없이 일정하다.`,
+    ae:``
+  },
+  {
+    n:82,
+    q:'송전선에서 저항과 누설 컨덕턴스를 무시한 개략 계산에서 송전선의 특성 임피던스는 보통 몇 [Ω] 정도인가?',
+    o:['100∼300','300∼500','500∼700','700∼900'],
+    ans:2,
+    e:`특성 임피던스(파동 임피던스): 송전선로에 진행하는 전력의 전압과 전류의 비로서, 가공송전선로의 경우 300∼500[Ω]의 크기로 나타낸다.`,
+    ae:``
+  },
+  {
+    n:83,
+    q:'송전선로의 수전단을 단락한 경우 송전단에서 본 임피던스는 300[Ω]이고, 수전단을 개방한 경우에는 1200[Ω]일 때 이 선로의 특성 임피던스는 몇 [Ω]인가?',
+    o:['600','500','1000','1200'],
+    ans:1,
+    e:`<div class="fb0">\\[Z_o=\\sqrt{Z_{SS}\\times\\dfrac{1}{Y_{SO}}}=\\sqrt{300\\times1200}=600\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:84,
+    q:'어떤 가공선의 인덕턴스가 1.6[mH/km]이고 정전용량이 0.008[μF/km]일 때 특성 임피던스는 약 몇 [Ω]인가?',
+    o:['128','224','345','447'],
+    ans:4,
+    e:`<div class="fb0">\\[Z_o=\\sqrt{\\dfrac{L}{C}}=\\sqrt{\\dfrac{1.6\\times10^{-3}}{0.008\\times10^{-6}}}=447.21\\;[\\Omega]\\]</div>`,
+    ae:``
+  },
+  {
+    n:87,
+    q:'일반회로정수 \\(A\\), \\(B\\), \\(C\\), \\(D\\), 송·수전단 상전압이 각각 \\(E_S\\), \\(E_R\\)일 때 수전단 전력원선도의 반경은?',
+    o:['\\(\\dfrac{E_SE_R}{A}\\)','\\(\\dfrac{E_SE_R}{B}\\)','\\(\\dfrac{E_SE_R}{C}\\)','\\(\\dfrac{E_SE_R}{D}\\)'],
+    ans:2,
+    e:`전력원선도의 반지름 \\(r=\\dfrac{E_SE_R}{B}\\)`,
+    ae:``,
+    formula:`<div class="fb0">\\[r=\\dfrac{E_SE_R}{B}\\]</div>`
+  },
+  {
+    n:88,
+    q:'선로길이 100[km], 송전단전압 154[kV], 수전단전압 140[kV]의 3상 3선식 정전압송전선에서 선로정수는 저항 0.315[Ω/km], 리액턴스 1.035[Ω/km]라고 할 때 수전단 3상 전력원선도의 반경을 [MVA]단위로 표시하면 약 얼마인가?',
+    o:['200','300','450','600'],
+    ans:1,
+    e:`임피던스 \\(Z=\\sqrt{r^2+x^2}\\times\\) 선로길이<br>
+<div class="fb0">\\[\\begin{aligned}Z&=\\sqrt{0.315^2+1.035^2}\\times100=108.19\\;[\\Omega]\\\\r&=\\dfrac{E_SE_R}{B}=\\dfrac{154\\times140}{108.19}=199.28\\approx200\\;[\\text{MVA}]\\end{aligned}\\]</div>`,
+    ae:``
+  },
+  {
+    n:90,
+    q:'전력원선도의 가로축과 세로축은 각각 어느 것을 나타내는가?',
+    o:['최대 전력 – 피상전력','유효전력 – 무효전력','조상용량 – 송전효율','송전효율 – 코로나 손실'],
+    ans:2,
+    e:`전력원선도의 가로축은 유효전력, 세로축은 무효전력<br>
+반경(반지름)은 \\(\\dfrac{V_SV_R}{Z}\\)이다.`,
+    ae:``
+  },
+  {
+    n:91,
+    q:'다음 중 전력원선도에서 알 수 없는 것은?',
+    o:['전력','손실','역률','코로나 손실'],
+    ans:4,
+    e:`<strong>전력원선도에서 알 수 있는 사항</strong><br>
+㉠ 송·수전단 전력<br>
+㉡ 조상설비의 종류 및 조상용량<br>
+㉢ 개선된 수전단역률<br>
+㉣ 송전효율 및 선로손실<br>
+㉤ 송전단역률`,
+    ae:``
+  },
+  {
+    n:92,
+    q:'조상설비라고 할 수 없는 것은?',
+    o:['분로 리액터','동기조상기','비동기조상기','상순표시기'],
+    ans:4,
+    e:`상순표시기는 다상 회로에서 각 상의 최대값에 이르는 순서를 표시하는 장치로, 상회전방향을 확인할 때 사용하는 장치이다.`,
+    ae:``
+  },
+  {
+    n:93,
+    q:'충전전류는 일반적으로 어떤 전류를 말하는가?',
+    o:['앞선 전류','뒤진 전류','유효전류','누설전류'],
+    ans:1,
+    e:`충전전류는 선로와 대지, 선로와 선로 사이에 정전용량으로 인해 선로에 흐르는 진상전류(앞선 전류)이다.`,
+    ae:``
+  },
+  {
+    n:94,
+    q:'동기조상기에 관한 설명으로 틀린 것은?',
+    o:['동기전동기의 V특성을 이용하는 설비이다.','동기전동기를 부족여자로 하여 컨덕터로 사용한다.','동기전동기를 과여자로 하여 콘덴서로 사용한다.','송전계통의 전압을 일정하게 유지하기 위한 설비이다.'],
+    ans:2,
+    e:`<strong>동기조상기</strong><br>
+㉠ 동기전동기를 무부하상태로 운전하여 여자전류의 가감을 통해 전기자반작용 현상을 이용하여 전력계통의 전압 조정 및 역률을 개선에 사용하는 기기이다.<br>
+㉡ 동기전동기의 위상특성곡선(V곡선)을 이용하는 설비이다.<br>
+㉢ 여자전류를 변화시켜 진상 또는 지상 전류를 공급함으로써 무효전력 조정장치로 사용한다.<br>
+㉣ 부족여자운전 → 리액터 작용, 과여자운전 → 콘덴서 작용`,
+    ae:``
+  },
+  {
+    n:96,
+    q:'동기조상기와 전력용 콘덴서를 비교할 때 전력용 콘덴서의 이점으로 옳은 것은?',
+    o:['진상과 지상의 전류 양용이다.','단락고장이 일어나도 고장전류가 흐르지 않는다.','송전선의 시송전에 이용 가능하다.','전압조정이 연속적이다.'],
+    ans:2,
+    e:`<strong>전력용 콘덴서의 장점</strong><br>
+㉠ 정기회 회전인 동기조상기에 비해 전력손실이 작다.<br>
+㉡ 부하급변에 따라 콘덴서의 용량을 수시로 변경할 수 있다.<br>
+㉢ 단락고장이 일어나도 고장전류가 흐르지 않는다.`,
+    ae:``
+  },
+  {
+    n:99,
+    q:'직렬 콘덴서 방식의 특실에 대한 설명으로 옳은 것은?',
+    o:['최대 송전력이 감소하고 정태안정도가 감소된다.','부하의 변동에 따른 수전단의 전압변동률은 증대된다.','선로의 유도 리액턴스를 보상하고 전압강하를 감소한다.','송수 양단의 전달 임피던스가 증가하고 안정극한전력이 감소한다.'],
+    ans:3,
+    e:`전압강하 \\(e=V_S-V_R=\\sqrt{3}\\,I_n(R\\cos\\theta+(X_L-X_C)\\sin\\theta)\\)<br>
+위에서 보듯이 감소된다.<br>
+직렬 콘덴서는 송전선로와 직렬로 설치하는 전력용 콘덴서로 설치하게 되면 안정도를 증가시키고 선로의 유도성 리액턴스를 보상하여 선로의 전압강하를 감소시킨다. 또한, 역률이 나쁜 선로일수록 효과가 양호하다.`,
+    ae:``
+  },
+  {
+    n:100,
+    q:'직렬 콘덴서를 선로에 삽입할 때의 이점이 아닌 것은?',
+    o:['선로의 인덕턴스를 보상한다.','수전단의 전압강하를 줄인다.','정태안정도가 증가한다.','송단의 역률을 개선한다.'],
+    ans:4,
+    e:`<strong>직렬 콘덴서를 설치하였을 때 이점(장점)</strong><br>
+㉠ 선로의 인덕턴스를 보상하여 전압강하 및 전압변동률을 줄인다.<br>
+㉡ 안정도가 증가하여 송전전력이 커진다.<br>
+㉢ 부하역률이 나쁜 선로일수록 설치효과가 좋다.<br>
+㉣ 수전단 전압변동률을 줄인다.<br>
+역률개선은 전력용 콘덴서(병렬 콘덴서)를 사용한다.`,
+    ae:``
+  },
+  {
+    n:108,
+    q:'안정권선(△권선)을 가지고 있는 대용량 고전압의 변압기가 있다. 조상기 및 전력용 콘덴서는 주로 어디에 접속되는가?',
+    o:['주변압기의 1차','주변압기의 2차','주변압기의 3차(안정권선)','주변압기의 1차와 2차'],
+    ans:3,
+    e:`<strong>1차 변전소에 설치되어 있는 3권선 변압기의 3차 권선의 용도</strong><br>
+㉠ 3고조파 제거를 위해 안정권선(△권선)을 설치한다.<br>
+㉡ 조상설비(동기조상기 및 전력용 콘덴서, 분로 리액터)를 설치한다.<br>
+㉢ 변전소 내 전원을 공급한다.`,
+    ae:``
+  },
+  {
+    n:109,
+    q:'전력계통의 전압조정설비의 특징으로 옳지 않은 것은?',
+    o:['병렬 콘덴서는 진상능력만을 가지며 병렬 리액터는 진상능력이 없다.','동기조상기는 무효전력의 공급과 흡수가 모두 가능하며 진상 및 지상 용량을 갖는다.','동기조상기는 조정의 단계가 불연속적이나 직렬 콘덴서 및 병렬 리액터는 연속적이다.','병렬 리액터는 장거리 초고압 송전선 또는 지중선계통의 충전용량보상용으로 주요 발·변전소에 설치된다.'],
+    ans:3,
+    e:`동기조상기는 무부하상태로 회전하는 동기전동기로, 무효전력을 가감하여 전압을 조정하게 되므로 전압조정이 연속적이다.`,
+    ae:``
+  },
+  {
+    n:110,
+    q:'조상설비가 있는 1차 변전소에서 주변압기로 주로 사용되는 변압기는?',
+    o:['강압용 변압기','3권선 변압기','단권변압기','단상변압기'],
+    ans:2,
+    e:`1차 변전소의 주변압기로 3권선 변압기가 사용되는데 조상설비는 3권선 변압기의 3차 권선에 접속된다.`,
+    ae:``
+  },
+  {
+    n:111,
+    q:'중간조상방식이란?',
+    o:['송전선로의 중간에 동기조상기 연결','송전선로의 중간에 직렬 콘덴서 삽입','송전선로의 중간에 병렬 전력용 콘덴서 연결','송전선로의 중간에 개폐소 설치, 리액터와 전력용 콘덴서를 병렬로 연결'],
+    ans:1,
+    e:`중간조상방식은 송전선로 중 변전소에 3권선 변압기의 3차 권선에 동기조상기를 연결하여 무효전력을 조정하는 방식이다.`,
+    ae:``
+  },
+  {
+    n:113,
+    q:'전력용 콘덴서에 직렬로 콘덴서 용량의 5[%] 정도의 유도 리액턴스를 삽입하는 목적은?',
+    o:['제3고조파 전류의 억제','제5고조파 전류의 억제','이상전압 발생방지','정전용량의 조절'],
+    ans:2,
+    e:`직렬 리액터는 제5고조파 전류를 제거하기 위해 사용하고 직렬 리액터의 용량은 전력용 콘덴서 용량의 이론상 4[%] 이상, 실제로는 5∼6[%]의 용량을 사용한다.`,
+    ae:``
+  },
+  {
+    n:114,
+    q:'1상당의 용량 150[kVA]인 전력용 콘덴서에 제5고조파를 억제시키기 위해 필요한 직렬 리액터의 기본파에 대한 용량은 몇 [kVA] 정도가 필요한가?',
+    o:['1.5','3','4.5','6'],
+    ans:4,
+    e:`직렬 리액터의 용량은 기본파용량의 4[%]가 필요하므로<br>
+<div class="fb0">\\[Q_L=150\\times0.04=6\\;[\\text{kVA}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:116,
+    q:'전력용 콘덴서 회로에 방전 코일을 설치하는 주목적은?',
+    o:['합성역률의 개선','전원개방 시 잔류전하를 방전시켜 인체의 위험방지','콘덴서의 등가용량 증대','전압의 개선'],
+    ans:2,
+    e:`방전 코일은 콘덴서를 전원으로부터 개방시킬 때 콘덴서 내부의 잔류전하를 방전시켜 인체에 대한 감전사고를 미연에 방지하기 위해 설치한다.`,
+    ae:``
+  },
+  {
+    n:117,
+    q:'3상 1선과 대지간의 단위길이당 충전전류가 0.25[A/km]일 때 길이가 18[km]인 선로의 충전전류는 몇 [A]인가?',
+    o:['1.5','4.5','13.5','40.5'],
+    ans:2,
+    e:`충전전류 \\(I_c=\\omega CEl\\times10^{-6}\\)[A]<br>
+충전전류는 거리(\\(l\\))에 비례한다.<br>
+<div class="fb0">\\[I_c=0.25\\times18=4.5\\;[\\text{A}]\\]</div>`,
+    ae:``
+  },
+  {
+    n:118,
+    q:'정전용량 0.01[μF/km], 길이 173.2[km], 선간전압 60000[V], 주파수 60[Hz]인 송전선로의 충전전류[A]는 얼마인가?',
+    o:['6.3','12.5','22.6','37.2'],
+    ans:3,
+    e:`<div class="fb0">\\[\\begin{aligned}I_c&=2\\pi fC\\dfrac{V_n}{\\sqrt{3}}l\\times10^{-6}\\\\&=2\\pi\\times60\\times0.01\\times\\dfrac{60000}{\\sqrt{3}}\\times173.2\\times10^{-6}\\\\&=22.6\\;[\\text{A}]\\end{aligned}\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[I_c=2\\pi fC\\dfrac{V_n}{\\sqrt{3}}l\\times10^{-6}\\;[\\text{A}]\\]</div>`
+  },
+  {
+    n:119,
+    q:'22000[V], 60[Hz], 1회선의 3상 지중송전에 대한 무부하송전용량은 약 몇 [kVar] 정도 되겠는가? (단, 송전선의 길이는 20[km], 1선 1[km]당 정전용량은 0.5[μF]이다)',
+    o:['1750','1825','1900','1925'],
+    ans:2,
+    e:`<div class="fb0">\\[Q_c=2\\pi fCV_n{}^2l\\times10^{-9}=2\\pi\\times60\\times0.5\\times22000^2\\times20\\times10^{-9}=1824.68\\;[\\text{kVA}]\\]</div>`,
+    ae:``,
+    formula:`<div class="fb0">\\[Q_c=2\\pi fCV_n{}^2l\\times10^{-9}\\;[\\text{kVA}]\\]</div>`
+  },
+  {
+    n:121,
+    q:'페란티 현상이 발생하는 원인은?',
+    o:['선로의 과도한 저항 때문이다.','선로의 정전용량 때문이다.','선로의 인덕턴스 때문이다.','선로의 급격한 전압강하 때문이다.'],
+    ans:2,
+    e:`페란티 현상이란 선로에 충전전류가 흐르면 수전단전압이 송전단전압보다 높아지는 현상으로, 그 원인은 선로의 정전용량 때문이다.`,
+    ae:``
+  },
+  {
+    n:122,
+    q:'다음 중 초고압 장거리 송전선로에 접속되는 1차 변전소에 분로 리액터를 설치하는 목적은?',
+    o:['송전용량의 증가','전력손실의 경감','과도안정도의 증진','페란티 효과의 방지'],
+    ans:4,
+    e:`무부하 및 경부하 시 발생하는 페란티 현상은 1차 변전소의 3권선 변압기 3차측 권선에 분로 리액터(Sh·R)를 설치하여 방지한다.`,
+    ae:``
+  },
+  {
+    n:123,
+    q:'단락비가 큰 동기발전기에 대한 설명으로 옳지 않은 것은?',
+    o:['기계의 치수가 커진다.','풍손, 마찰손, 철손이 많아진다.','전압변동률이 커진다.','안정도가 높아진다.'],
+    ans:3,
+    e:`단락비가 큰 동기발전기는 동기 임피던스 및 전기자반작용이 작아서 전압변동률이 작다.<br>
+<div class="fb0">\\[K_s=\\dfrac{10V_n{}^2}{PZ_s}\\]</div>`,
+    ae:``
+  },/* 예시 문제 (참고용 — 실제 사용 시 아래 주석 해제 말고 위에 새로 추가할 것)
+  {
+    n: 1,
+    q: '직류기를 구성하고 있는 3요소는?',
+    o: [
+      '전기자, 계자, 슬립링',
+      '전기자, 계자, 정류자',
+      '전기자, 정류자, 브러시',
+      '전기자, 계자, 보상권선'
+    ],
+    ans: 2,
+    e: `<strong>직류기 3요소</strong> : 전기자, 계자, 정류자<br>
+교류기 3요소 : 전기자, 계자, 슬립링`,
+    ae: `<strong>왜 슬립링이 아닌 정류자인가?</strong><br>
+직류기는 코일에서 발생한 교류를 <strong>직류로 변환</strong>하는 정류자(Commutator)가 핵심 부품입니다.<br>
+슬립링은 교류기(동기기 등)에서 회전체와 외부 회로를 전기적으로 연결할 때 사용합니다.<br><br>
+<strong>오답 분석</strong><br>
+① 슬립링 → 교류기 부품이라 오답<br>
+③ 브러시는 정류자와 함께 쓰이지만 3요소에 포함되지 않음<br>
+④ 보상권선은 전기자반작용 억제용 부품으로 필수 3요소가 아님`
+  },
+  {
+    n: 2,
+    q: '기전력 \\(E\\,[\\text{V}]\\), 내부저항 \\(r\\,[\\Omega]\\), 부하저항 \\(R\\,[\\Omega]\\)일 때 부하전류 \\(I\\,[\\text{A}]\\)는?',
+    o: [
+      '\\(\\dfrac{E}{R}\\)',
+      '\\(\\dfrac{E}{r}\\)',
+      '\\(\\dfrac{E}{R+r}\\)',
+      '\\(\\dfrac{E}{R-r}\\)'
+    ],
+    ans: 3,
+    e: `<div class="fb0">
+\\[ \\begin{aligned} I &= \\dfrac{E}{R+r} \\;[\\text{A}] \\end{aligned} \\]
+</div>
+E : 기전력 &nbsp; R : 부하저항 &nbsp; r : 내부저항<br>
+직류발전기의 부하전류는 기전력을 (부하저항 + 내부저항)으로 나눈 값이다.`,
+    formula: `<div class="fb0">\\[ I = \\dfrac{E}{R+r} \\;[\\text{A}] \\]</div>
+E : 기전력, R : 부하저항, r : 내부저항`,
+    ae: `<strong>키르히호프 전압 법칙으로 이해하기</strong><br>
+폐회로에서 기전력 = 전압 강하의 합이므로<br>
+\\[ \\begin{aligned} E &= IR + Ir \\\\ &= I(R+r) \\end{aligned} \\]
+따라서 \\( I = \\dfrac{E}{R+r} \\)<br><br>
+<strong>암기 팁</strong><br>
+분모는 <strong>"회로에 있는 저항 전부"</strong>의 합이라고 기억하면 됩니다.<br>
+R만 있으면 \\( \\dfrac{E}{R} \\), 내부저항도 직렬이면 \\( \\dfrac{E}{R+r} \\).`
+  },
+  {
+    n: 3,
+    q: '전기자도체의 굵기, 권수, 극수가 모두 같을 때 단중 파권이 단중 중권에 비교하여 다른 것은?',
+    o: [
+      '대전류, 고전압',
+      '소전류, 고전압',
+      '대전류, 저전압',
+      '소전류, 저전압'
+    ],
+    ans: 2,
+    e: `<table class="ctbl">
+<tr><th>구분</th><th>중권(lap winding)</th><th>파권(wave winding)</th></tr>
+<tr><td>병렬회로수(a)</td><td>P (극수)</td><td>2</td></tr>
+<tr><td>브러시수</td><td>P (극수)</td><td>2</td></tr>
+<tr><td>용도</td><td>저전압·대전류</td><td>고전압·소전류</td></tr>
+<tr><td>균압환</td><td>필요</td><td>불필요</td></tr>
+</table>`,
+    ae: `<strong>직관적으로 이해하기</strong><br>
+중권은 병렬회로가 P개(극수만큼)이므로 전류가 여러 경로로 나뉘어 흐름 → <strong>대전류에 유리</strong><br>
+파권은 병렬회로가 단 2개뿐이므로 전류는 적지만 전압이 높게 누적됨 → <strong>고전압에 유리</strong><br><br>
+<strong>암기 팁</strong><br>
+파(波)권 = 파도처럼 높다 = <strong>고전압</strong><br>
+중(重)권 = 여러 경로 = <strong>대전류</strong>`
+  },
+  */
+
+];
+
+
+/* ══════════════════════════════════════════════════
+   주관식 문제 데이터  (SQS 배열)
+   ──────────────────────────────────────────────────
+   A형(빈칸): { type:'fill', id:'sqA1', title, sub, sent }
+   B형(공식): { type:'formula', id:'sqB1', title, hint, ans }
+   ══════════════════════════════════════════════════ */
+const SQS = [
+
+  /* ─────────── 여기에 주관식 추가 ─────────── */
+
+  /* 예시 (참고용 — 실제 사용 시 위에 새로 추가할 것)
+  {
+    type: 'fill',
+    id: 'sqA1',
+    title: '직류발전기의 종류 — 접속 방식',
+    sub: '빈칸에 알맞은 말을 입력하고 채점하기를 눌러보세요',
+    sent: `
+      ⊙ <strong style="color:var(--ac)">분권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="병렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">직권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="직렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">복권기</strong> : 직권계자권선과 분권계자권선이 전기자와
+      <input class="sq-inp" data-ans="직·병렬" placeholder="　　　"> 로 접속된 것이다.
+    `
+  },
+  {
+    type: 'formula',
+    id: 'sqB1',
+    title: '직류발전기 유기기전력 공식',
+    hint: 'E = ?',
+    ans: `
+      <div class="fb0" style="border-color:var(--ac2);text-align:center;">
+        <div class="fl">\\( E = \\dfrac{PZ\\phi N}{60a} \\;[\\text{V}] \\)</div>
+      </div>
+      <div style="margin-top:10px;line-height:2.0;font-size:.83rem;">
+        · <strong>P</strong> : 극수<br>
+        · <strong>Z</strong> : 총 도체수<br>
+        · <strong>φ</strong> : 1극당 자속 [Wb]<br>
+        · <strong>N</strong> : 회전수 [rpm]<br>
+        · <strong>a</strong> : 병렬 회로수
+      </div>
+    `
+  },
+  */
+
+];
+
+
+/* ═══════════════════════════════════════════════════
+   엔진 — 수정 불필요
+   ═══════════════════════════════════════════════════ */
+
+/* ── 상수 ── */
+const N = ['①','②','③','④'];
+const KATEX_OPTS = {
+  delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+  throwOnError:false
+};
+const STORE_KEY = 'egki_' + document.title.replace(/\s/g,'_');
+
+/* ── 상태 변수 ── */
+let wrongSet    = new Set();
+let okSet       = new Set();
+let bookmarkSet = new Set();
+let shufMap     = {};
+let selectedMap = {};
+let attemptMap  = {};  /* attemptMap[n] = {try, ok} */
+let randMode    = false;
+let randedOrder = null;  /* 섞인 문제 순서 저장 */
+let shufMode    = false;
+let bmMode      = false;
+let viewMode    = 'all';
+let weakPctActive = null;
+let lastSeenN   = null;
+
+function shuf(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+/* 시도 비율 → CSS 클래스 */
+function atCls(at){
+  if(!at||at.try===0) return 'tg-at-none';
+  const r=at.ok/at.try;
+  if(r<0.2)  return 'tg-at-zero';
+  if(r<0.5)  return 'tg-at-low';
+  if(r<0.8)  return 'tg-at-mid';
+  return 'tg-at-full';
+}
+function atHtml(at){
+  const cls=atCls(at);
+  const txt=at?`${at.ok}/${at.try}`:'-/-';
+  return `<span class="tg tg-at ${cls}">${txt}</span>`;
+}
+
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      wrongSet:[...wrongSet],
+      okSet:[...okSet],
+      selectedMap,
+      attemptMap,
+      bookmarkSet:[...bookmarkSet],
+      lastN: lastSeenN
+    }));
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    const validNs=new Set(QS.filter(q=>q.n!=null).map(q=>q.n));
+    wrongSet   = new Set((s.wrongSet||[]).filter(n=>validNs.has(n)));
+    okSet      = new Set((s.okSet||[]).filter(n=>validNs.has(n)));
+    bookmarkSet= new Set((s.bookmarkSet||[]).filter(n=>validNs.has(n)));
+    selectedMap= Object.fromEntries(Object.entries(s.selectedMap||{}).filter(([k])=>validNs.has(parseInt(k))));
+    const am=s.attemptMap||{};
+    Object.keys(am).filter(k=>validNs.has(parseInt(k))).forEach(k=>{ attemptMap[parseInt(k)]=am[k]; });
+    lastSeenN  = validNs.has(s.lastN)?s.lastN:null;
+  }catch(e){}
+}
+
+/* 통계 업데이트 */
+function upStat(){
+  const done=okSet.size+wrongSet.size;
+  document.getElementById('st-done').textContent=done;
+  document.getElementById('st-total').textContent=QS.length;
+}
+
+/* 전체 렌더 (DOM 재구성) */
+function render(){
+  let qs = randedOrder
+    ? randedOrder.map(n=>QS.find(q=>q.n===n)).filter(Boolean)
+    : QS.filter(q=>q.n!=null);
+  document.getElementById('main').innerHTML=qs.map(mkCard).join('');
+  renderMathInElement(document.getElementById('main'),KATEX_OPTS);
+  if(viewMode!=='all') applyViewFilter(viewMode, weakPctActive);
+  upStat();
+}
+
+/* ── 뷰 필터 ── */
+
+/* 순수 DOM show/hide — alert 없음, render()에서 내부 호출용 */
+function applyViewFilter(mode, weakPct){
+  document.querySelectorAll('.card').forEach(c=>{
+    const n=parseInt(c.dataset.n);
+    let show=true;
+    if(mode==='ok')   show=okSet.has(n);
+    if(mode==='ng')   show=wrongSet.has(n);
+    if(mode==='bm')   show=bookmarkSet.has(n);
+    if(mode==='weak'){
+      const at=attemptMap[n];
+      show=!!at&&at.try>0&&(at.ok/at.try*100)<=weakPct;
+    }
+    c.style.display=show?'':'none';
+  });
+  /* 오답 뷰: 카드를 초기화해 다시 풀 수 있게 */
+  if(mode==='ng'){
+    wrongSet.forEach(n=>{
+      const card=document.getElementById('q'+n);
+      if(!card) return;
+      card.querySelectorAll('.opt').forEach(o=>o.className='opt');
+      const res=document.getElementById(`q${n}_res`);
+      if(res) res.classList.remove('show');
+      card.className='card answered-ng';
+      const cn=card.querySelector('.cn');
+      if(cn) cn.className='cn ng';
+    });
+  }
+}
+
+/* 버튼 강조 업데이트 */
+function updateViewBtns(mode, weakPct){
+  ['btnAll','btnNg','btnWeak'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  if(mode==='all')        document.getElementById('btnAll').classList.add('on');
+  else if(mode==='ng')    document.getElementById('btnNg').classList.add('on');
+  else if(mode==='weak'){
+    document.getElementById('btnWeak').classList.add('on');
+    document.querySelector('#btnWeak .lbl').textContent=`≤${weakPct}%`;
+  }
+}
+
+/* 사용자 클릭 진입점 — 검증 + 상태 저장 + 필터 적용 */
+function setView(mode, weakPct){
+  document.getElementById('weakMenu').classList.remove('open');
+  /* 빈 상태 경고 */
+  if(mode==='ok'   && okSet.size===0)   {alert('아직 맞힌 문제가 없어요!');return;}
+  if(mode==='ng'   && wrongSet.size===0){alert('아직 틀린 문제가 없어요!');return;}
+  if(mode==='weak'){
+    const has=QS.some(q=>{const at=attemptMap[q.n];return at&&at.try>0&&(at.ok/at.try*100)<=weakPct;});
+    if(!has){alert(`정확률 ${weakPct}% 이하인 문제가 없어요! 먼저 풀어보세요 😊`);return;}
+  }
+  viewMode=mode;
+  weakPctActive=(mode==='weak')?weakPct:null;
+  updateViewBtns(mode, weakPct);
+  applyViewFilter(mode, weakPct);
+}
+
+/* 자주틀림 드롭다운 */
+function toggleWeakMenu(){
+  document.getElementById('weakMenu').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.weak-wrap')) document.getElementById('weakMenu').classList.remove('open');
+});
+
+/* ── 카드 생성 ── */
+function mkCard(q){
+  const id='q'+q.n;
+  const isOk=okSet.has(q.n),isNg=wrongSet.has(q.n);
+  const answered=isOk||isNg;
+  const tags=``;
+  const at=attemptMap[q.n];
+  const atTag=atHtml(at);
+
+  let opts=[...q.o],dispAns=q.ans;
+  if(shufMode){
+    if(!shufMap[id]){const sh=shuf([0,1,2,3]);shufMap[id]={order:sh,newAns:sh.indexOf(q.ans-1)+1};}
+    opts=shufMap[id].order.map(i=>q.o[i]);dispAns=shufMap[id].newAns;
+  }
+
+  const savedSel=selectedMap[q.n]?.sel??null;
+
+  const optHtml=opts.map((o,i)=>{
+    const pos=i+1;
+    let cls='opt';
+    if(answered){
+      cls+=' lk';
+      if(pos===dispAns) cls+=' cor';
+      if(savedSel!==null && pos===savedSel && savedSel!==dispAns) cls+=' wrg';
+    }
+    return `<div class="${cls}" id="${id}_p${pos}" onclick="sel('${id}',${pos},${dispAns})">
+      <span class="on">${N[i]}</span><span>${o}</span>
+    </div>`;
+  }).join('');
+
+  const resShow=answered?'show':'';
+  const aeHtml=q.ae?`
+    <div class="expl ae-expl">
+      <div class="ae-label">✦ 추가 해설 (AI)</div>
+      ${q.ae}
+    </div>`:'';
+
+  const cnCls=isOk?'cn ok':isNg?'cn ng':'cn';
+  const cardCls=`card${isOk?' answered-ok':isNg?' answered-ng':''}`;
+  const bmCls=bookmarkSet.has(q.n)?'bm-icon on':'bm-icon';
+  return `<div class="${cardCls}" id="${id}" data-n="${q.n}">
+  <div class="ch">
+    <div class="${cnCls}">${q.n}</div>
+    <div class="ct">
+      <div class="tags">${tags}${atTag}</div>
+      <div class="qt">${q.q}</div>
+    </div>
+    <button class="${bmCls}" onclick="toggleBM(event,${q.n})" title="북마크">⭐</button>
+  </div>
+  <div class="opts" id="${id}_opts">${optHtml}</div>
+  <div class="res-bar ${resShow}" id="${id}_res">
+    <div class="ansbar">
+      <span class="albl">정답</span>
+      <span class="aval">${N[dispAns-1]} ${opts[dispAns-1]}</span>
+      <button class="rtbtn" onclick="reset('${id}')">↺ 다시풀기</button>
+    </div>
+    <div class="expl">${q.e}</div>
+    ${aeHtml}
+  </div>
+</div>`;
+}
+
+/* 보기 선택 */
+function sel(id,n,dispAns){
+  const os=document.querySelectorAll(`#${id}_opts .opt`);
+  if(os[0].classList.contains('lk'))return;
+  os.forEach(o=>o.classList.add('lk'));
+  const qn=parseInt(id.replace('q',''));
+  const isCorrect=n===dispAns;
+
+  /* 마지막 푼 문제 기록 */
+  lastSeenN=qn;
+
+  /* 시도 기록 */
+  if(!attemptMap[qn]) attemptMap[qn]={try:0,ok:0};
+  attemptMap[qn].try++;
+  if(isCorrect) attemptMap[qn].ok++;
+  /* 카드 상단 시도 표시 갱신 */
+  const atEl=document.querySelector(`#q${qn} .tg-at`);
+  if(atEl){
+    const at=attemptMap[qn];
+    atEl.textContent=`${at.ok}/${at.try}`;
+    atEl.className=`tg tg-at ${atCls(at)}`;
+  }
+
+  /* 선택 저장 */
+  selectedMap[qn]={sel:n,dispAns};
+
+  if(isCorrect){
+    document.getElementById(`${id}_p${n}`).classList.add('cor');
+    okSet.add(qn);wrongSet.delete(qn);
+    document.getElementById(id).className='card answered-ok';
+    document.querySelector(`#${id} .cn`).className='cn ok';
+  } else {
+    document.getElementById(`${id}_p${n}`).classList.add('wrg');
+    document.getElementById(`${id}_p${dispAns}`).classList.add('cor');
+    wrongSet.add(qn);okSet.delete(qn);
+    document.getElementById(id).className='card answered-ng';
+    document.querySelector(`#${id} .cn`).className='cn ng';
+  }
+
+  const res=document.getElementById(`${id}_res`);
+  res.classList.add('show');
+  renderMathInElement(res, KATEX_OPTS);
+
+  upStat();
+  saveState();
+}
+
+function reset(id){
+  const n=parseInt(id.replace('q',''));
+  /* 상태 초기화 */
+  wrongSet.delete(n); okSet.delete(n); delete selectedMap[n];
+  if(shufMode) delete shufMap[id];
+  /* DOM 초기화 */
+  document.querySelectorAll(`#${id}_opts .opt`).forEach(o=>o.className='opt');
+  document.getElementById(`${id}_res`).classList.remove('show');
+  document.getElementById(id).className='card';
+  document.querySelector(`#${id} .cn`).className='cn';
+  document.getElementById(id).style.display='';
+  upStat();
+  saveState();
+  /* 오답 뷰에서 오답이 0개가 되면 전체 뷰로 전환 */
+  if(viewMode==='ng' && wrongSet.size===0) setView('all');
+}
+
+function resetAll(){
+  wrongSet.clear(); okSet.clear();
+  shufMap={}; selectedMap={}; randedOrder=null; shufMode=false;
+  /* attemptMap·bookmarkSet 유지 */
+  viewMode='all'; weakPctActive=null; lastSeenN=null; bmMode=false;
+  /* 버튼 초기화 */
+  document.getElementById('btnBM').classList.remove('on');
+  document.querySelector('#btnWeak .lbl').textContent='자주틀림';
+  updateViewBtns('all');
+  render(); upStat(); saveState();
+}
+
+function toggleMenu(){
+  document.getElementById('menuPanel').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
+}
+
+function toggleBM(e,n){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  if(bookmarkSet.has(n)){bookmarkSet.delete(n);btn.classList.remove('on');}
+  else{bookmarkSet.add(n);btn.classList.add('on');}
+  btn.blur();
+  saveState();
+  if(viewMode==='bm') setView('bm');
+}
+
+function toggleBookmark(b){
+  bmMode=!bmMode;
+  b.classList.toggle('on', bmMode);
+  if(bmMode){
+    if(bookmarkSet.size===0){
+      alert('북마크한 문제가 없어요! 문제 옆 ★을 눌러 추가하세요.');
+      bmMode=false; b.classList.remove('on'); return;
+    }
+    viewMode='bm'; applyViewFilter('bm');
+    updateViewBtns('bm');
+  } else {
+    viewMode='all'; applyViewFilter('all');
+    updateViewBtns('all');
+  }
+}
+
+function toggleFormulaSheet(){
+  const page=document.getElementById('formulaPage');
+  const isOpen=page.classList.toggle('open');
+  /* 메인 페이지 스크롤 잠금 */
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(isOpen) renderFormulaSheet();
+}
+
+function renderFormulaSheet(){
+  const body=document.getElementById('fsBody');
+  const items=QS.filter(q=>q.formula);
+  if(!items.length){
+    body.innerHTML='<div class="fc-empty">등록된 공식이 없어요.<br>QS 데이터에 formula 필드를 추가하세요.</div>';
+    return;
+  }
+  body.innerHTML=items.map(q=>`
+    <div class="fc">
+      <div class="fc-title">Q${q.n}. ${q.q.replace(/<[^>]*>/g,'').substring(0,40)}${q.q.length>40?'…':''}</div>
+      <div class="fc-body">${q.formula}</div>
+    </div>
+  `).join('');
+  renderMathInElement(body, KATEX_OPTS);
+}
+
+/* 순서섞기 — 섞인 순서를 유지 */
+function doRand(){
+  randedOrder = shuf(QS.filter(q=>q.n!=null).map(q=>q.n));
+  render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+/* 보기섞기 — 순서는 그대로, 보기 배치만 새로 섞기 */
+function doShuf(){
+  shufMap={}; shufMode=true; render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+
+/* ── 주관식 렌더 ── */
+function renderSQ(){
+  const wrap=document.getElementById('sq-wrap');
+  if(!SQS.length){wrap.style.display='none';return;}
+  wrap.innerHTML=`<div class="sq-divider"><span>📝 주관식</span></div>`+SQS.map(s=>{
+    if(s.type==='fill'){
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">${s.sub||'빈칸을 채워보세요'}</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-sent">${s.sent}</div>
+    <div class="sq-btns">
+      <button class="sq-btn-check" onclick="sqCheck('${s.id}')">✓ 채점하기</button>
+      <button class="sq-btn-sub" onclick="sqShowAll('${s.id}')">정답 보기</button>
+      <button class="sq-btn-sub" onclick="sqReset('${s.id}')">↺ 다시풀기</button>
+    </div>
+    <div class="sq-score" id="${s.id}_score"></div>
+  </div>
+</div>`;
+    } else {
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">공식을 떠올린 후 정답을 확인하세요</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-formula-box">
+      <span style="color:var(--tx3);font-size:.78rem;display:block;margin-bottom:6px;">공식을 써보세요</span>
+      <span style="color:var(--ac2);font-size:1.05rem;font-style:italic;">${s.hint}</span>
+    </div>
+    <button class="sq-show-btn" onclick="sqToggle('${s.id}',this)">🔍 정답 보기</button>
+    <div class="sq-ans-box" id="${s.id}_ans">${s.ans}</div>
+  </div>
+</div>`;
+    }
+  }).join('');
+  /* 번호 순서대로 주N 표시 */
+  wrap.querySelectorAll('.sq-num').forEach((el,i)=>el.textContent='주'+(i+1));
+  renderMathInElement(wrap, KATEX_OPTS);
+}
+
+function sqCheck(id){
+  const sc=document.getElementById(`${id}_score`);
+  const inps=sc.closest('.sq-body').querySelectorAll('.sq-inp');
+  let ok=0;
+  inps.forEach(inp=>{
+    inp.classList.remove('cor','wrg');
+    if(inp.value.trim()===inp.dataset.ans){inp.classList.add('cor');ok++;}
+    else inp.classList.add('wrg');
+  });
+  sc.className='sq-score '+(ok===inps.length?'ok':'ng');
+  sc.textContent=ok===inps.length?'🎉 모두 정답!':`${ok} / ${inps.length} 정답 — 틀린 칸을 확인해보세요`;
+}
+function sqShowAll(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.remove('wrg');inp.classList.add('cor');});
+  sc.className='sq-score ok';sc.textContent='정답을 확인했습니다 ✓';
+}
+function sqReset(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value='';inp.classList.remove('cor','wrg');});
+  sc.className='sq-score';sc.textContent='';
+}
+function sqToggle(id,btn){
+  const box=document.getElementById(`${id}_ans`);
+  const showing=box.classList.toggle('show');
+  btn.textContent=showing?'🙈 정답 숨기기':'🔍 정답 보기';
+  if(showing) renderMathInElement(box, KATEX_OPTS);
+}
+
+/* 터치 기기 :active 고착 방지 — touchend 후 0.1초 뒤 blur */
+document.addEventListener('touchend', e=>{
+  const btn=e.target.closest('button,.stat-btn');
+  if(btn) setTimeout(()=>btn.blur(), 100);
+}, {passive:true});
+
+/* 초기화 */
+loadState();
+render();
+renderSQ();
+
+/* 마지막 푼 문제로 스크롤 */
+if(lastSeenN){
+  requestAnimationFrame(()=>{
+    const el=document.getElementById('q'+lastSeenN);
+    if(el) el.scrollIntoView({behavior:'instant',block:'center'});
+  });
+}
+
+/* 맨 위로 버튼 — 화면 높이 2배 이상 스크롤 시 표시 */
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('topBtn');
+  btn.classList.toggle('visible', window.scrollY > 300);
+},{passive:true});
+</script>
+</body>
+</html>
